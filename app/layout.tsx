@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "@/app/globals.css";
 
 export const metadata: Metadata = {
-  title: "United Legacy Infra Pvt. Ltd. | Dholera SIR",
+  title: "United Legacy Infra Pvt. Ltd.",
   description:
     "Land and real estate in Dholera SIR, India's first greenfield smart city — United Legacy Infra Pvt. Ltd.",
 };
