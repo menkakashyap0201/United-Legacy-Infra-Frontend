@@ -407,7 +407,7 @@ function Portfolio() {
   ];
 
   return (
-    <section id="portfolio" className="relative scroll-mt-20 overflow-hidden bg-page-2 py-20 sm:py-28">
+    <section id="portfolio" className="relative scroll-mt-20 overflow-hidden bg-page-2 py-14 sm:py-20 lg:py-28">
       <div className="absolute inset-0 opacity-10"><Photo src={pic("ulp-skyline", 1920, 1100)} alt="" sizes="100vw" /></div>
       <div className="absolute inset-0 bg-[linear-gradient(180deg,var(--color-page-2)_0%,color-mix(in_srgb,var(--color-page-2)_85%,transparent)_40%,var(--color-page-2)_100%)]" />
       <span aria-hidden className="pointer-events-none absolute left-1/2 top-40 h-72 w-[40rem] -translate-x-1/2 rounded-full bg-gold opacity-20 blur-3xl" />
@@ -415,24 +415,24 @@ function Portfolio() {
 
       <div className={`${container} relative`}>
         <Reveal from="top">
-          <div className="text-center">
-            <p className="text-lg font-semibold tracking-[0.3em] text-fg/70">OUR</p>
-            <h2 className={`text-4xl font-extrabold leading-tight sm:text-6xl ${goldText}`}>Product portfolio</h2>
-            <p className="mt-3 text-fg/65">Land investment options with a {PLAN_MONTHS}-month plan</p>
+          <div className="text-center px-2">
+            <p className="text-sm sm:text-lg font-semibold tracking-[0.25em] sm:tracking-[0.3em] text-fg/70">OUR</p>
+            <h2 className={`text-3xl font-extrabold leading-tight sm:text-5xl lg:text-6xl ${goldText}`}>Product portfolio</h2>
+            <p className="mt-3 text-sm sm:text-base text-fg/65">Land investment options with a {PLAN_MONTHS}-month plan</p>
           </div>
         </Reveal>
 
         {/* quick stats */}
-        <div className="mx-auto mt-10 grid max-w-4xl grid-cols-2 gap-3 sm:grid-cols-4">
+        <div className="mx-auto mt-8 sm:mt-10 grid max-w-4xl grid-cols-2 gap-3 sm:grid-cols-4">
           {portfolioStats.map((st, n) => {
             const I = st.icon;
             return (
               <Reveal key={st.label} from={sideFrom(n)} delay={n * 100}>
-                <div className="group flex h-full items-center gap-3 rounded-2xl border border-gold/30 bg-surface/90 p-3.5 shadow-[0_12px_30px_-22px_rgba(0,0,0,.5)] backdrop-blur transition hover:-translate-y-1 hover:border-gold">
-                  <span className={`${n % 2 ? accentGrad + " text-white" : goldGrad + " text-on-gold"} flex h-11 w-11 shrink-0 items-center justify-center rounded-xl transition duration-500 group-hover:rotate-[10deg]`}><I className="h-5 w-5" /></span>
+                <div className="group flex h-full items-center gap-2.5 sm:gap-3 rounded-2xl border border-gold/30 bg-surface/90 p-3 sm:p-3.5 shadow-[0_12px_30px_-22px_rgba(0,0,0,.5)] backdrop-blur transition hover:-translate-y-1 hover:border-gold">
+                  <span className={`${n % 2 ? accentGrad + " text-white" : goldGrad + " text-on-gold"} flex h-9 w-9 sm:h-11 sm:w-11 shrink-0 items-center justify-center rounded-xl transition duration-500 group-hover:rotate-[10deg]`}><I className="h-4 w-4 sm:h-5 sm:w-5" /></span>
                   <span className="min-w-0">
-                    <span className="block text-base font-extrabold text-fg">{st.value}</span>
-                    <span className="block text-xs text-fg/55">{st.label}</span>
+                    <span className="block text-sm sm:text-base font-extrabold text-fg truncate">{st.value}</span>
+                    <span className="block text-[10px] sm:text-xs text-fg/55 truncate">{st.label}</span>
                   </span>
                 </div>
               </Reveal>
@@ -441,8 +441,8 @@ function Portfolio() {
         </div>
 
         {/* tabs */}
-        <Reveal from="bottom" delay={150} className="mt-10 flex justify-center">
-          <div className="relative grid grid-cols-2 rounded-full border border-gold/50 bg-surface p-1.5 shadow-md">
+        <Reveal from="bottom" delay={150} className="mt-8 sm:mt-10 flex justify-center px-2">
+          <div className="relative grid w-full max-w-xs grid-cols-2 rounded-full border border-gold/50 bg-surface p-1.5 shadow-md sm:w-auto sm:max-w-none">
             <span aria-hidden className={`${goldGrad} absolute inset-y-1.5 left-1.5 w-[calc(50%-6px)] rounded-full shadow-lg transition-transform duration-500 ease-[cubic-bezier(.22,.8,.2,1)] ${tab === "fractional" ? "translate-x-full" : ""}`} />
             {(["full", "fractional"] as const).map((t) => {
               const I = t === "full" ? FaHouse : FaLayerGroup;
@@ -451,29 +451,86 @@ function Portfolio() {
                   key={t}
                   onClick={() => { setTab(t); setSel(t === "full" ? fullPlots[0] : fractionalPlots[0]); }}
                   aria-pressed={tab === t}
-                  className={`relative z-10 flex items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm font-bold transition sm:px-8 ${tab === t ? "text-fg" : "text-fg/60 hover:text-fg"}`}
+                  className={`relative z-10 flex items-center justify-center gap-1.5 sm:gap-2 rounded-full px-3 py-2.5 text-xs sm:text-sm font-bold transition sm:px-8 ${tab === t ? "text-fg" : "text-fg/60 hover:text-fg"}`}
                 >
-                  <I className="h-4 w-4" />
-                  {t === "full" ? "Full plots" : "Fractional options"}
+                  <I className="h-3.5 w-3.5 sm:h-4 sm:w-4 shrink-0" />
+                  <span className="truncate">{t === "full" ? "Full plots" : "Fractional"}</span>
                 </button>
               );
             })}
           </div>
         </Reveal>
 
-        <div className="mt-10 grid gap-8 lg:grid-cols-[1.25fr_0.75fr] lg:items-start">
+        <div className="mt-8 sm:mt-10 grid gap-6 sm:gap-8 lg:grid-cols-[1.25fr_0.75fr] lg:items-start">
           <div>
-            {/* table */}
+            {/* ---------- MOBILE: card list (below sm) ---------- */}
             <Reveal from="left" delay={200}>
-              <div className="overflow-x-auto rounded-3xl border-2 border-gold/70 bg-surface shadow-[0_30px_60px_-30px_color-mix(in_srgb,var(--color-gold)_55%,transparent)]">
-                <table className="w-full min-w-[660px] text-left">
+              <div className="space-y-3 sm:hidden">
+                {rows.map((r, n) => {
+                  const active = sel.size === r.size;
+                  const T = r.tag ? tagStyle[r.tag] : null;
+                  return (
+                    <button
+                      key={tab + r.size}
+                      onClick={() => setSel(r)}
+                      style={{ animationDelay: `${n * 100}ms` }}
+                      className={`relative block w-full animate-[slideL_.6s_ease-out_both] overflow-hidden rounded-2xl border-2 p-4 text-left transition ${active ? "border-gold bg-[linear-gradient(135deg,color-mix(in_srgb,var(--color-gold)_14%,transparent),transparent)]" : "border-gold/30 bg-surface"}`}
+                    >
+                      <div className="flex items-center gap-3">
+                        <span className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${active ? `${goldGrad} text-on-gold shadow-md` : "bg-accent/15 text-accent-light"}`}>
+                          {tab === "full" ? <FaHouse className="h-4 w-4" /> : <FaLayerGroup className="h-4 w-4" />}
+                        </span>
+                        <div className="min-w-0 flex-1">
+                          <div className="flex items-center gap-2">
+                            <span className="text-base font-extrabold text-fg">{r.size}</span>
+                            {T && r.tag && (
+                              <span className={`inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-[9px] font-bold ${T.cls}`}><T.icon className="h-2.5 w-2.5" />{r.tag}</span>
+                            )}
+                          </div>
+                          <span className="text-xs text-fg/55">{inr(r.rate)} / sq yd</span>
+                        </div>
+                        {active && <FaCircleCheck className="h-5 w-5 shrink-0 text-gold" />}
+                      </div>
+
+                      <div className="mt-3 grid grid-cols-2 gap-2 border-t border-gold/15 pt-3">
+                        <div>
+                          <p className="flex items-center gap-1 text-[10px] text-fg/50"><FaWallet className="h-2.5 w-2.5" /> Total amount</p>
+                          <p className="mt-0.5 text-sm font-bold text-fg">{inr(r.total)}</p>
+                        </div>
+                        {SHOW_RETURNS && (
+                          <div>
+                            <p className="flex items-center gap-1 text-[10px] text-fg/50"><FaCoins className="h-2.5 w-2.5" /> Return / month</p>
+                            <p className="mt-0.5 text-sm font-bold text-gold">{inr(r.monthly)}</p>
+                          </div>
+                        )}
+                      </div>
+                      {SHOW_RETURNS && (
+                        <div className="mt-2 flex items-center justify-between rounded-lg bg-accent/10 px-2.5 py-1.5">
+                          <span className="flex items-center gap-1 text-[10px] text-accent-light"><FaChartLine className="h-2.5 w-2.5" /> Total in {PLAN_MONTHS} months</span>
+                          <span className="text-xs font-bold text-accent-light">{inr(r.monthly * PLAN_MONTHS)}</span>
+                        </div>
+                      )}
+                    </button>
+                  );
+                })}
+                <p className="flex items-center justify-center gap-2 rounded-xl border border-gold/25 bg-gold/5 px-4 py-3 text-center text-[10px] font-bold tracking-wider text-gold">
+                  <FaPercent className="h-3 w-3 shrink-0" /> 2% ADMIN CHARGE APPLICABLE ON EVERY PRODUCT
+                </p>
+              </div>
+
+              {/* ---------- DESKTOP/TABLET: table (sm and up) ---------- */}
+              <div className="hidden overflow-x-auto rounded-3xl border-2 border-gold/70 bg-surface shadow-[0_30px_60px_-30px_color-mix(in_srgb,var(--color-gold)_55%,transparent)] sm:block">
+                <table className="w-full min-w-[560px] text-left">
                   <thead className={`${goldGrad} text-on-gold`}>
                     <tr>
                       {heads.map((h) => {
                         const I = h.icon;
                         return (
-                          <th key={h.label} className="px-5 py-4 text-sm font-extrabold">
-                            <span className="flex items-center gap-2"><span className="flex h-7 w-7 items-center justify-center rounded-lg bg-surface/35"><I className="h-3.5 w-3.5" /></span>{h.label}</span>
+                          <th key={h.label} className="px-4 lg:px-5 py-3.5 lg:py-4 text-xs lg:text-sm font-extrabold whitespace-nowrap">
+                            <span className="flex items-center gap-2">
+                              <span className="flex h-6 w-6 lg:h-7 lg:w-7 items-center justify-center rounded-lg bg-surface/35"><I className="h-3 w-3 lg:h-3.5 lg:w-3.5" /></span>
+                              {h.label}
+                            </span>
                           </th>
                         );
                       })}
@@ -490,30 +547,30 @@ function Portfolio() {
                           style={{ animationDelay: `${n * 120}ms` }}
                           className={`group cursor-pointer animate-[slideL_.7s_ease-out_both] border-t border-gold/20 text-fg transition ${active ? "bg-[linear-gradient(90deg,color-mix(in_srgb,var(--color-gold)_16%,transparent),transparent)]" : "hover:bg-page-2"}`}
                         >
-                          <td className="relative px-5 py-5">
+                          <td className="relative px-4 lg:px-5 py-4 lg:py-5">
                             <span className={`absolute inset-y-3 left-0 w-1 rounded-r-full transition ${active ? goldGrad : "bg-transparent"}`} />
                             <span className="flex items-center gap-3">
-                              <span className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl transition ${active ? `${goldGrad} text-on-gold shadow-md` : "bg-accent/15 text-accent-light group-hover:bg-accent group-hover:text-white"}`}>
+                              <span className={`flex h-9 w-9 lg:h-10 lg:w-10 shrink-0 items-center justify-center rounded-xl transition ${active ? `${goldGrad} text-on-gold shadow-md` : "bg-accent/15 text-accent-light group-hover:bg-accent group-hover:text-white"}`}>
                                 {tab === "full" ? <FaHouse className="h-4 w-4" /> : <FaLayerGroup className="h-4 w-4" />}
                               </span>
                               <span>
-                                <span className="block text-lg font-extrabold leading-tight">{r.size}</span>
+                                <span className="block text-base lg:text-lg font-extrabold leading-tight">{r.size}</span>
                                 {T && r.tag && (
                                   <span className={`mt-1 inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-[10px] font-bold ${T.cls}`}><T.icon className="h-2.5 w-2.5" />{r.tag}</span>
                                 )}
                               </span>
                             </span>
                           </td>
-                          <td className="px-5 py-5 font-semibold text-fg/70">{inr(r.rate)}</td>
-                          <td className="px-5 py-5 font-bold">{inr(r.total)}</td>
+                          <td className="px-4 lg:px-5 py-4 lg:py-5 font-semibold text-fg/70 whitespace-nowrap">{inr(r.rate)}</td>
+                          <td className="px-4 lg:px-5 py-4 lg:py-5 font-bold whitespace-nowrap">{inr(r.total)}</td>
                           {SHOW_RETURNS && (
-                            <td className="px-5 py-5">
-                              <span className="inline-flex items-center gap-1.5 rounded-lg bg-gold/10 px-2.5 py-1 font-bold text-gold"><FaCoins className="h-3.5 w-3.5" />{inr(r.monthly)}</span>
+                            <td className="px-4 lg:px-5 py-4 lg:py-5">
+                              <span className="inline-flex items-center gap-1.5 rounded-lg bg-gold/10 px-2.5 py-1 font-bold text-gold whitespace-nowrap"><FaCoins className="h-3.5 w-3.5" />{inr(r.monthly)}</span>
                             </td>
                           )}
                           {SHOW_RETURNS && (
-                            <td className="px-5 py-5">
-                              <span className="inline-flex items-center gap-1.5 rounded-lg bg-accent/15 px-2.5 py-1 font-bold text-accent-light"><FaChartLine className="h-3.5 w-3.5" />{inr(r.monthly * PLAN_MONTHS)}</span>
+                            <td className="px-4 lg:px-5 py-4 lg:py-5">
+                              <span className="inline-flex items-center gap-1.5 rounded-lg bg-accent/15 px-2.5 py-1 font-bold text-accent-light whitespace-nowrap"><FaChartLine className="h-3.5 w-3.5" />{inr(r.monthly * PLAN_MONTHS)}</span>
                             </td>
                           )}
                         </tr>
@@ -522,22 +579,23 @@ function Portfolio() {
                   </tbody>
                 </table>
                 <p className="flex items-center justify-center gap-2 border-t border-gold/25 bg-gold/5 px-5 py-4 text-center text-xs font-bold tracking-[0.18em] text-gold">
-                  <FaPercent className="h-3 w-3" /> 2% ADMIN CHARGE APPLICABLE ON EVERY PRODUCT
+                  <FaPercent className="h-3 w-3 shrink-0" /> 2% ADMIN CHARGE APPLICABLE ON EVERY PRODUCT
                 </p>
               </div>
-              <p className="mt-3 flex items-center gap-1.5 text-xs text-fg/50"><FaHandPointer className="h-3 w-3" /> Tap a row to see it in the plan calculator.</p>
+
+              <p className="mt-3 flex items-center gap-1.5 text-[11px] sm:text-xs text-fg/50"><FaHandPointer className="h-3 w-3 shrink-0" /> Tap a plot to see it in the plan calculator.</p>
             </Reveal>
 
             {/* assurance cards */}
-            <div className="mt-6 grid gap-4 sm:grid-cols-3">
+            <div className="mt-6 grid grid-cols-1 gap-4 xs:grid-cols-2 sm:grid-cols-3">
               {assurances.map((as, n) => {
                 const I = as.icon;
                 return (
                   <Reveal key={as.title} from="bottom" delay={300 + n * 120}>
-                    <div className={`group h-full p-5 ${n % 2 ? cardAccent : cardGold}`}>
-                      <span className={`flex h-11 w-11 items-center justify-center rounded-xl transition duration-500 group-hover:scale-110 ${n % 2 ? "bg-accent/15 text-accent-light" : "bg-gold/10 text-gold"}`}><I className="h-5 w-5" /></span>
-                      <h3 className="mt-3 font-bold text-fg">{as.title}</h3>
-                      <p className="mt-1 text-sm leading-relaxed text-fg/60">{as.text}</p>
+                    <div className={`group h-full p-4 sm:p-5 ${n % 2 ? cardAccent : cardGold}`}>
+                      <span className={`flex h-10 w-10 sm:h-11 sm:w-11 items-center justify-center rounded-xl transition duration-500 group-hover:scale-110 ${n % 2 ? "bg-accent/15 text-accent-light" : "bg-gold/10 text-gold"}`}><I className="h-4 w-4 sm:h-5 sm:w-5" /></span>
+                      <h3 className="mt-3 text-sm sm:text-base font-bold text-fg">{as.title}</h3>
+                      <p className="mt-1 text-xs sm:text-sm leading-relaxed text-fg/60">{as.text}</p>
                     </div>
                   </Reveal>
                 );
@@ -547,18 +605,18 @@ function Portfolio() {
 
           {/* calculator */}
           <Reveal from="right" delay={300}>
-            <div className="relative overflow-hidden rounded-3xl border border-gold/60 bg-surface shadow-[0_30px_60px_-30px_rgba(0,0,0,.45)]">
-              <div className={`${accentGrad} relative flex items-center gap-3 px-6 py-5 text-white`}>
+            <div className="relative overflow-hidden rounded-2xl sm:rounded-3xl border border-gold/60 bg-surface shadow-[0_30px_60px_-30px_rgba(0,0,0,.45)]">
+              <div className={`${accentGrad} relative flex items-center gap-3 px-4 sm:px-6 py-4 sm:py-5 text-white`}>
                 <span aria-hidden className="absolute -right-8 -top-8 h-28 w-28 rounded-full border border-white/20" />
                 <span aria-hidden className="absolute -right-2 top-8 h-12 w-12 rounded-full border border-gold-light/40" />
-                <span className={`${goldGrad} flex h-11 w-11 items-center justify-center rounded-xl text-on-gold shadow-lg`}><FaCalculator className="h-5 w-5" /></span>
-                <span>
-                  <span className="block text-lg font-extrabold">Plan calculator</span>
-                  <span className="block text-xs text-white/70">Choose a plot size to see the numbers</span>
+                <span className={`${goldGrad} flex h-10 w-10 sm:h-11 sm:w-11 shrink-0 items-center justify-center rounded-xl text-on-gold shadow-lg`}><FaCalculator className="h-4 w-4 sm:h-5 sm:w-5" /></span>
+                <span className="min-w-0">
+                  <span className="block text-base sm:text-lg font-extrabold">Plan calculator</span>
+                  <span className="block text-[11px] sm:text-xs text-white/70">Choose a plot size to see the numbers</span>
                 </span>
               </div>
 
-              <div className="p-6">
+              <div className="p-4 sm:p-6">
                 <div className="flex flex-wrap gap-2">
                   {allPlots.map((p) => {
                     const on = sel.size === p.size;
@@ -567,7 +625,7 @@ function Portfolio() {
                         key={p.size}
                         onClick={() => { setSel(p); setTab(fullPlots.includes(p) ? "full" : "fractional"); }}
                         aria-pressed={on}
-                        className={`inline-flex items-center gap-1.5 rounded-full border px-3.5 py-1.5 text-xs font-bold transition ${on ? `${goldGrad} border-transparent text-on-gold shadow-md` : "border-fg/15 text-fg/70 hover:border-accent-light hover:text-accent-light"}`}
+                        className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-[11px] sm:text-xs font-bold transition ${on ? `${goldGrad} border-transparent text-on-gold shadow-md` : "border-fg/15 text-fg/70 hover:border-accent-light hover:text-accent-light"}`}
                       >
                         {on && <FaCircleCheck className="h-3 w-3" />}{p.size}
                       </button>
@@ -575,61 +633,62 @@ function Portfolio() {
                   })}
                 </div>
 
-                <dl className="mt-6 space-y-2">
+                <dl className="mt-5 sm:mt-6 space-y-2">
                   {calcRows.map((c) => {
                     const I = c.icon;
                     return (
-                      <div key={c.label} className={`flex items-center gap-3 rounded-xl px-3 py-2.5 ${c.strong ? "border border-fg/10 bg-page-2" : ""}`}>
-                        <span className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg ${c.strong ? `${goldGrad} text-on-gold` : "bg-accent/15 text-accent-light"}`}><I className="h-3.5 w-3.5" /></span>
-                        <dt className={`flex-1 text-sm ${c.strong ? "font-bold text-fg" : "text-fg/65"}`}>{c.label}</dt>
-                        <dd className={`${c.strong ? "text-lg font-extrabold" : "font-semibold"} text-fg`}><CountUp value={c.value} format={inr} /></dd>
+                      <div key={c.label} className={`flex items-center gap-2.5 sm:gap-3 rounded-xl px-2.5 sm:px-3 py-2.5 ${c.strong ? "border border-fg/10 bg-page-2" : ""}`}>
+                        <span className={`flex h-7 w-7 sm:h-8 sm:w-8 shrink-0 items-center justify-center rounded-lg ${c.strong ? `${goldGrad} text-on-gold` : "bg-accent/15 text-accent-light"}`}><I className="h-3 w-3 sm:h-3.5 sm:w-3.5" /></span>
+                        <dt className={`flex-1 text-xs sm:text-sm ${c.strong ? "font-bold text-fg" : "text-fg/65"}`}>{c.label}</dt>
+                        <dd className={`${c.strong ? "text-base sm:text-lg font-extrabold" : "text-sm sm:text-base font-semibold"} text-fg whitespace-nowrap`}><CountUp value={c.value} format={inr} /></dd>
                       </div>
                     );
                   })}
                 </dl>
 
                 {SHOW_RETURNS && (
-                  <div className="mt-5 rounded-2xl border border-gold/40 bg-[linear-gradient(160deg,color-mix(in_srgb,var(--color-gold)_12%,var(--color-surface))_0%,var(--color-surface)_100%)] p-5">
-                    <div className="grid grid-cols-2 gap-3">
-                      <div className="rounded-xl bg-surface p-3 shadow-sm">
-                        <p className="flex items-center gap-1.5 text-xs text-fg/55"><FaCoins className="h-3 w-3 text-gold" /> Return / month</p>
-                        <p className="mt-1 text-xl font-extrabold text-fg"><CountUp value={sel.monthly} format={inr} /></p>
+                  <div className="mt-5 rounded-2xl border border-gold/40 bg-[linear-gradient(160deg,color-mix(in_srgb,var(--color-gold)_12%,var(--color-surface))_0%,var(--color-surface)_100%)] p-4 sm:p-5">
+                    <div className="grid grid-cols-2 gap-2.5 sm:gap-3">
+                      <div className="rounded-xl bg-surface p-2.5 sm:p-3 shadow-sm">
+                        <p className="flex items-center gap-1.5 text-[10px] sm:text-xs text-fg/55"><FaCoins className="h-3 w-3 text-gold shrink-0" /> Return / month</p>
+                        <p className="mt-1 text-base sm:text-xl font-extrabold text-fg"><CountUp value={sel.monthly} format={inr} /></p>
                       </div>
-                      <div className="rounded-xl bg-surface p-3 shadow-sm">
-                        <p className="flex items-center gap-1.5 text-xs text-fg/55"><FaSackDollar className="h-3 w-3 text-accent-light" /> Total in {PLAN_MONTHS} months</p>
-                        <p className="mt-1 text-xl font-extrabold text-fg"><CountUp value={sel.monthly * PLAN_MONTHS} format={inr} /></p>
+                      <div className="rounded-xl bg-surface p-2.5 sm:p-3 shadow-sm">
+                        <p className="flex items-center gap-1.5 text-[10px] sm:text-xs text-fg/55"><FaSackDollar className="h-3 w-3 text-accent-light shrink-0" /> Total in {PLAN_MONTHS} months</p>
+                        <p className="mt-1 text-base sm:text-xl font-extrabold text-fg"><CountUp value={sel.monthly * PLAN_MONTHS} format={inr} /></p>
                       </div>
                     </div>
 
-                    <p className="mt-4 flex h-5 items-center gap-1.5 text-xs font-semibold text-fg/70">
-                      <FaChartLine className="h-3 w-3 text-accent-light" />
-                      {hm === null ? "Hover the bars to see month-by-month totals" : `Month ${hm + 1}: ${inr(sel.monthly * (hm + 1))} received`}
+                    <p className="mt-4 flex h-5 items-center gap-1.5 text-[11px] sm:text-xs font-semibold text-fg/70">
+                      <FaChartLine className="h-3 w-3 text-accent-light shrink-0" />
+                      <span className="truncate">{hm === null ? "Tap bars for month totals" : `Month ${hm + 1}: ${inr(sel.monthly * (hm + 1))}`}</span>
                     </p>
-                    <div key={sel.size} className="mt-2 flex h-24 items-end gap-[3px]" onMouseLeave={() => setHm(null)}>
+                    <div key={sel.size} className="mt-2 flex h-16 sm:h-24 items-end gap-[2px] sm:gap-[3px]" onMouseLeave={() => setHm(null)}>
                       {Array.from({ length: PLAN_MONTHS }).map((_, k) => (
                         <span
                           key={k}
                           onMouseEnter={() => setHm(k)}
+                          onClick={() => setHm(k)}
                           style={{ height: `${((k + 1) / PLAN_MONTHS) * 100}%`, animationDelay: `${k * 35}ms` }}
                           className={`flex-1 origin-bottom animate-[growUp_.5s_ease-out_both] cursor-pointer rounded-t-sm transition-colors ${hm === k || (hm === null && k === PLAN_MONTHS - 1) ? goldGrad : hm !== null && k < hm ? "bg-accent" : hm !== null ? "bg-accent/25" : "bg-accent"}`}
                         />
                       ))}
                     </div>
-                    <div className="mt-1.5 flex justify-between text-[10px] text-fg/45"><span>Month 1</span><span>Month {PLAN_MONTHS}</span></div>
+                    <div className="mt-1.5 flex justify-between text-[9px] sm:text-[10px] text-fg/45"><span>Month 1</span><span>Month {PLAN_MONTHS}</span></div>
                   </div>
                 )}
 
-                <Link href="/home#contact" className={`${btnPrimary} group mt-6 w-full`}>
-                  Enquire about {sel.size}<FaArrowRight className="h-3.5 w-3.5 transition group-hover:translate-x-1" />
+                <Link href="/home#contact" className={`${btnPrimary} group mt-6 w-full justify-center text-sm sm:text-base`}>
+                  <span className="truncate">Enquire about {sel.size}</span><FaArrowRight className="h-3.5 w-3.5 shrink-0 transition group-hover:translate-x-1" />
                 </Link>
-                <p className="mt-3 flex items-start gap-1.5 text-[11px] leading-relaxed text-fg/45"><FaCircleInfo className="mt-0.5 h-3 w-3 shrink-0" /> Stamp duty and registration fees are extra, at government rates.</p>
+                <p className="mt-3 flex items-start gap-1.5 text-[10px] sm:text-[11px] leading-relaxed text-fg/45"><FaCircleInfo className="mt-0.5 h-3 w-3 shrink-0" /> Stamp duty and registration fees are extra, at government rates.</p>
               </div>
             </div>
           </Reveal>
         </div>
 
         <Reveal from="bottom">
-          <p className="mx-auto mt-10 max-w-3xl text-center text-xs leading-relaxed text-fg/50">
+          <p className="mx-auto mt-8 sm:mt-10 max-w-3xl text-center text-[11px] sm:text-xs leading-relaxed text-fg/50 px-2">
             Returns are paid only as per the terms of your signed agreement. Real estate investment carries risk. Please read the agreement in full and take independent legal and financial advice before investing.
           </p>
         </Reveal>
@@ -1117,58 +1176,7 @@ function Connectivity() {
   );
 }
 
-/* ================= Gallery (two marquees, opposite directions) ================= */
-function Gallery() {
-  const Row = ({ imgs, reverse }: { imgs: string[]; reverse?: boolean }) => (
-    <div className="group overflow-hidden">
-      <div className={`flex w-max gap-5 group-hover:[animation-play-state:paused] ${reverse ? "animate-[marqueeRev_55s_linear_infinite]" : "animate-[marquee_55s_linear_infinite]"}`}>
-        {[...imgs, ...imgs].map((src, n) => (
-          <div key={n} className={`relative h-44 w-64 shrink-0 overflow-hidden rounded-2xl p-[4px] sm:h-56 sm:w-80 ${n % 2 ? accentGrad : goldGrad}`}>
-            <div className="relative h-full w-full overflow-hidden rounded-xl">
-              <Photo src={src} alt="" sizes="320px" className="transition duration-700 hover:scale-110" />
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-  return (
-    <section id="gallery" className="scroll-mt-20 overflow-hidden bg-page py-20 sm:py-28">
-      <div className={container}>
-        <Reveal from="top"><Heading center eyebrow="Project gallery" title="A glimpse of what's ahead" text="The plan, the land and the lifestyle taking shape." /></Reveal>
-      </div>
-      <div className="mt-12 space-y-5">
-        <Reveal from="left"><Row imgs={gallery} /></Reveal>
-        <Reveal from="right" delay={150}><Row imgs={gallery2} reverse /></Reveal>
-      </div>
-    </section>
-  );
-}
 
-/* ================= CTA ================= */
-function CTA() {
-  return (
-    <section className="bg-page pb-20 sm:pb-28">
-      <div className={container}>
-        <Reveal from="zoom">
-          <div className="relative isolate overflow-hidden rounded-[2.5rem] border-2 border-gold/70 px-6 py-16 text-center sm:px-12 sm:py-20">
-            <div className="absolute inset-0 -z-10"><Photo src={pic("ulp-cta", 1600, 700)} alt="" sizes="100vw" /></div>
-            <div className="absolute inset-0 -z-10 bg-[linear-gradient(135deg,rgba(255,248,230,.96)_0%,rgba(238,243,255,.94)_100%)]" />
-            <Ring className="-left-10 -top-10 h-40 w-40 border-2 opacity-40 animate-[float_7s_ease-in-out_infinite]" />
-            <Ring className="-bottom-12 -right-12 h-52 w-52 border border-dashed opacity-50 animate-[spin_30s_linear_infinite]" />
-            <p className="text-sm font-semibold text-gold">Land builds legacies</p>
-            <h2 className="mx-auto mt-3 max-w-2xl text-3xl font-extrabold leading-tight text-fg sm:text-5xl">Invest today for a brighter tomorrow</h2>
-            <p className="mx-auto mt-4 max-w-xl text-fg/65">See the land, check every document and choose the plan that fits you.</p>
-            <div className="mt-9 flex flex-wrap justify-center gap-3">
-              <Link href="/home#contact" className={btnPrimary}>Book a site visit <Icon name="arrow" className="h-4 w-4" /></Link>
-              <a href="tel:+910000000000" className={btnGhost}><Icon name="phone" className="h-4 w-4" /> Call +91 00000 00000</a>
-            </div>
-          </div>
-        </Reveal>
-      </div>
-    </section>
-  );
-}
 
 /* ================= Page ================= */
 export default function PortfolioPage() {
@@ -1202,8 +1210,8 @@ export default function PortfolioPage() {
         <CityPlan />
         <Infrastructure />
         <Connectivity />
-        <Gallery />
-        <CTA />
+      
+       
       </main>
     </div>
   );
