@@ -27,8 +27,38 @@ const btnGhost = "inline-flex items-center justify-center gap-2 rounded-full bor
 const cardGold = "rounded-3xl border border-gold/40 bg-surface shadow-[0_15px_40px_-28px_rgba(0,0,0,.45)] transition duration-300 hover:-translate-y-1.5 hover:border-gold hover:shadow-[0_25px_50px_-25px_color-mix(in_srgb,var(--color-gold)_55%,transparent)]";
 const cardAccent = "rounded-3xl border border-accent-light/25 bg-surface shadow-[0_15px_40px_-28px_rgba(0,0,0,.45)] transition duration-300 hover:-translate-y-1.5 hover:border-accent-light hover:shadow-[0_25px_50px_-25px_color-mix(in_srgb,var(--color-accent)_45%,transparent)]";
 
-/* Dummy images — replace with your own photos later */
-const pic = (seed: string, w: number, h: number) => `https://picsum.photos/seed/${seed}/${w}/${h}`;
+/* ================= Images: yahan apne direct links daalo =================
+   - Remote link:  "https://your-cdn.com/hero-1.jpg"
+   - Local file:   public/images/hero-1.jpg  →  "/images/hero-1.jpg"   (hamesha "/" se shuru, "./" nahi) */
+const IMAGES = {
+  hero: [
+    "/investbuild.png",
+    "/land-smart.png",
+    "/plugandplay.png",
+    "/air-road.png",
+  ],
+  skyline: "https://your-image-link.com/skyline.jpg", // Portfolio section ka halka background
+  cities: {
+    chandigarh: "/chandigarh.png",
+    noida: "/noida.png",
+    gurgaon: "/gurgaon.png",
+    bangalore: "/banglore.png",
+  },
+  road: "/investtoday.png", // "But not this one" card
+  zones: {
+    residential: "/residental1.png",
+    industrial: "/industrial1.png",
+    commercial: "/commercial1.png",
+  },
+  connectivity: {
+    airport: "/airport.png",
+    freight: "/rail-freight.png",
+    expressway: "/expressway.png",
+    metro: "/mono-rail-metro.png",
+    port: "/sea.png",
+  },
+};
+
 const inr = (n: number) => "₹" + Math.round(n).toLocaleString("en-IN");
 
 /** Set to false to hide the monthly return / total return columns and calculator figures. */
@@ -39,10 +69,10 @@ const ADMIN_RATE = 0.02;
 /* ================= Data (from the presentation) ================= */
 
 const heroSlides = [
-  { img: pic("ulp-hero-1", 1920, 1080), tag: "Land builds legacies", title: "Invest in a planned smart city", text: "Registered plots with clear titles, in a city planned for people, industry and business." },
-  { img: pic("ulp-hero-2", 1920, 1080), tag: "25-month plan", title: "Plots from ₹6,50,000", text: "Full plots at ₹12,500 per sq yd and fractional options at ₹13,000 per sq yd." },
-  { img: pic("ulp-hero-3", 1920, 1080), tag: "Plug and play", title: "Infrastructure ready before you build", text: "Underground utilities, smart meters and 24×7 power, planned from day one." },
-  { img: pic("ulp-hero-4", 1920, 1080), tag: "360° connectivity", title: "Air, road, rail and sea — all connected", text: "International airport, 250 m expressway, freight corridor, metro and sea port." },
+  { img: IMAGES.hero[0], tag: "Land builds legacies", title: "Invest in a planned smart city", text: "Registered plots with clear titles, in a city planned for people, industry and business." },
+  { img: IMAGES.hero[1], tag: "25-month plan", title: "Plots from ₹6,50,000", text: "Full plots at ₹12,500 per sq yd and fractional options at ₹13,000 per sq yd." },
+  { img: IMAGES.hero[2], tag: "Plug and play", title: "Infrastructure ready before you build", text: "Underground utilities, smart meters and 24×7 power, planned from day one." },
+  { img: IMAGES.hero[3], tag: "360° connectivity", title: "Air, road, rail and sea — all connected", text: "International airport, 250 m expressway, freight corridor, metro and sea port." },
 ];
 
 type Plot = { size: string; rate: number; total: number; monthly: number; tag?: "Popular" | "Best value" | "Low entry" };
@@ -60,10 +90,10 @@ const allPlots = [...fullPlots, ...fractionalPlots];
 const tickerItems = ["Land builds legacies", "Invest today for a brighter tomorrow", "Prime land, timeless value", "A stronger tomorrow begins here", "Opportunities grow generations", "Smart, sustainable, connected"];
 
 const missedCities = [
-  { city: "Chandigarh & Mohali", then: "A growing city", now: "A premium destination", img: pic("ulp-city-1", 400, 300) },
-  { city: "Noida", then: "An upcoming hub", now: "A real estate hotspot", img: pic("ulp-city-2", 400, 300) },
-  { city: "Gurgaon", then: "Just another town", now: "A global business hub", img: pic("ulp-city-3", 400, 300) },
-  { city: "Bangalore", then: "An emerging IT city", now: "A global innovation hub", img: pic("ulp-city-4", 400, 300) },
+  { city: "Chandigarh & Mohali", then: "A growing city", now: "A premium destination", img: IMAGES.cities.chandigarh },
+  { city: "Noida", then: "An upcoming hub", now: "A real estate hotspot", img: IMAGES.cities.noida },
+  { city: "Gurgaon", then: "Just another town", now: "A global business hub", img: IMAGES.cities.gurgaon },
+  { city: "Bangalore", then: "An emerging IT city", now: "A global innovation hub", img: IMAGES.cities.bangalore },
 ];
 
 const landUse: [string, string, string][] = [
@@ -103,19 +133,17 @@ const infraFeatures = [
 ];
 
 const connectivity = [
-  { icon: "plane", title: "International airport", sub: "Cargo and passenger", tagline: "Faster business. Bigger opportunities.", img: pic("ulp-air", 1100, 900) },
-  { icon: "train", title: "Dedicated Freight Corridor", sub: "Seamless logistics", tagline: "Stronger supply chains. A stronger India.", img: pic("ulp-rail", 1100, 900) },
-  { icon: "road", title: "250 m expressway", sub: "High-speed growth", tagline: "Shorter distances. Greater opportunities.", img: pic("ulp-road-2", 1100, 900) },
-  { icon: "metro", title: "Mono rail & metro", sub: "People on the move", tagline: "Fast, convenient, connected communities.", img: pic("ulp-metro", 1100, 900) },
-  { icon: "ship", title: "Sea port", sub: "Global trade access", tagline: "A gateway to global markets.", img: pic("ulp-port", 1100, 900) },
+  { icon: "plane", title: "International airport", sub: "Cargo and passenger", tagline: "Faster business. Bigger opportunities.", img: IMAGES.connectivity.airport },
+  { icon: "train", title: "Dedicated Freight Corridor", sub: "Seamless logistics", tagline: "Stronger supply chains. A stronger India.", img: IMAGES.connectivity.freight },
+  { icon: "road", title: "250 m expressway", sub: "High-speed growth", tagline: "Shorter distances. Greater opportunities.", img: IMAGES.connectivity.expressway },
+  { icon: "metro", title: "Mono rail & metro", sub: "People on the move", tagline: "Fast, convenient, connected communities.", img: IMAGES.connectivity.metro },
+  { icon: "ship", title: "Sea port", sub: "Global trade access", tagline: "A gateway to global markets.", img: IMAGES.connectivity.port },
 ];
-
-const gallery = Array.from({ length: 8 }, (_, n) => pic(`ulp-gallery-${n + 1}`, 700, 500));
-const gallery2 = Array.from({ length: 8 }, (_, n) => pic(`ulp-gallery-b${n + 1}`, 700, 500));
 
 /* ================= Helpers ================= */
 function Photo({ src, alt, sizes, priority, className = "" }: { src: string; alt: string; sizes: string; priority?: boolean; className?: string }) {
   const [ok, setOk] = useState(true);
+  useEffect(() => setOk(true), [src]); // link badalne par dobara try kare
   return (
     <div className="absolute inset-0 bg-[linear-gradient(135deg,var(--color-surface)_0%,var(--color-surface-2)_100%)]">
       {ok && <Image src={src} alt={alt} fill sizes={sizes} priority={priority} unoptimized={src.startsWith("http")} onError={() => setOk(false)} className={`object-cover ${className}`} />}
@@ -233,13 +261,14 @@ function Heading({ eyebrow, title, text, center = false, light = false }: { eyeb
   );
 }
 
-
 function Ring({ className }: { className: string }) {
   return <span aria-hidden className={`pointer-events-none absolute rounded-full border-gold ${className}`} />;
 }
 
-
 /* ================= Hero carousel ================= */
+/* text ke peeche kaala shadow — heading, paragraph aur tag ke liye */
+const textShadow = "[text-shadow:0_2px_6px_rgba(0,0,0,.75),0_6px_28px_rgba(0,0,0,.85)]";
+
 function Hero() {
   const [i, setI] = useState(0);
   const [paused, setPaused] = useState(false);
@@ -251,7 +280,7 @@ function Hero() {
   return (
     <section
       id="home"
-      className="relative isolate min-h-[100svh] overflow-hidden bg-page"
+      className="relative isolate min-h-[100svh] overflow-hidden bg-black"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
       onTouchStart={(e) => { touchX.current = e.touches[0].clientX; }}
@@ -264,50 +293,53 @@ function Hero() {
     >
       {/* slides with Ken Burns zoom */}
       {heroSlides.map((sl, n) => (
-        <div key={sl.img} aria-hidden={n !== i} className={`absolute inset-0 -z-20 transition-opacity duration-[1400ms] ${n === i ? "opacity-100" : "opacity-0"}`}>
+        <div key={sl.title} aria-hidden={n !== i} className={`absolute inset-0 -z-20 transition-opacity duration-[1400ms] ${n === i ? "opacity-100" : "opacity-0"}`}>
           <div key={n === i ? `on-${i}` : "off"} className={`absolute inset-0 ${n === i ? "animate-[kenburns_9s_ease-out_both]" : ""}`}>
             <Photo src={sl.img} alt={sl.title} sizes="100vw" priority={n === 0} />
           </div>
         </div>
       ))}
-      <div className="absolute inset-0 -z-10 bg-[linear-gradient(90deg,color-mix(in_srgb,var(--color-page)_98%,transparent)_0%,color-mix(in_srgb,var(--color-page)_88%,transparent)_42%,color-mix(in_srgb,var(--color-page)_15%,transparent)_100%)]" />
-      <div className="absolute inset-x-0 bottom-0 -z-10 h-48 bg-gradient-to-t from-page to-transparent" />
+
+      {/* dark overlay sirf left side (text ke peeche) — beech tak khatam, right side bilkul saaf */}
+      <div className="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(0,0,0,.65)_0%,rgba(0,0,0,.45)_30%,rgba(0,0,0,.15)_50%,rgba(0,0,0,0)_60%)]" />
+      {/* text ke theek peeche halka kaala glow */}
+      <span aria-hidden className="pointer-events-none absolute -left-20 top-1/2 -z-10 h-[60%] w-[45%] -translate-y-1/2 rounded-full bg-black/35 blur-3xl" />
+
       <Ring className="-right-24 top-24 hidden h-96 w-96 border border-dashed opacity-40 animate-[spin_40s_linear_infinite] lg:block" />
       <Ring className="right-[38%] top-[22%] hidden h-6 w-6 border-2 animate-[float_6s_ease-in-out_infinite] lg:block" />
-      <span aria-hidden className="pointer-events-none absolute -left-32 bottom-10 -z-10 h-96 w-96 rounded-full bg-gold-light opacity-30 blur-3xl" />
 
       <div className={`${container} grid min-h-[100svh] items-center gap-10 pb-36 pt-28 lg:grid-cols-[1.25fr_0.75fr]`}>
         {/* text — re-animates on every slide */}
         <div key={i} className="max-w-2xl">
-          <span className="inline-flex animate-[slideL_.8s_ease-out_both] items-center gap-2 rounded-full border border-gold/40 bg-gold/10 px-4 py-1.5 text-xs font-semibold text-gold">
+          <span className="inline-flex animate-[slideL_.8s_ease-out_both] items-center gap-2 rounded-full border border-gold/50 bg-black/55 px-4 py-1.5 text-xs font-semibold text-gold-light backdrop-blur-md">
             <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-gold" />
             {s.tag}
           </span>
-          <h1 className="mt-6 animate-[slideL_.9s_ease-out_both] text-4xl font-extrabold leading-[1.08] tracking-tight text-fg [animation-delay:120ms] sm:text-6xl">
+          <h1 className={`mt-6 animate-[slideL_.9s_ease-out_both] text-4xl font-extrabold leading-[1.08] tracking-tight text-white [animation-delay:120ms] sm:text-6xl ${textShadow}`}>
             {s.title}
           </h1>
-          <p className="mt-6 max-w-lg animate-[slideL_.9s_ease-out_both] text-lg leading-relaxed text-fg/70 [animation-delay:240ms]">{s.text}</p>
+          <p className={`mt-6 max-w-lg animate-[slideL_.9s_ease-out_both] text-lg font-medium leading-relaxed text-white/90 [animation-delay:240ms] ${textShadow}`}>{s.text}</p>
           <div className="mt-9 flex animate-[fadeUp_.9s_ease-out_both] flex-wrap gap-3 [animation-delay:380ms]">
             <a href="#portfolio" className={btnPrimary}>View plots & plan <Icon name="arrow" className="h-4 w-4" /></a>
-            <Link href="/home#contact" className={btnGhost}>Book a site visit</Link>
+            <Link href="/home#contact" className={`${btnGhost} !border-white/25 !bg-black/55 !text-white backdrop-blur-md`}>Book a site visit</Link>
           </div>
         </div>
 
         {/* thumbnails */}
         <div className="hidden flex-col gap-3 lg:flex">
           {heroSlides.map((sl, n) => (
-            <Reveal key={sl.img} from="right" delay={200 + n * 120}>
+            <Reveal key={sl.title} from="right" delay={200 + n * 120}>
               <button
                 onClick={() => go(n)}
                 aria-label={`Show slide: ${sl.title}`}
-                className={`group flex w-full items-center gap-4 rounded-2xl border p-2.5 text-left backdrop-blur transition duration-500 ${n === i ? "-translate-x-4 border-gold bg-surface shadow-xl" : "border-fg/10 bg-surface/80 hover:border-accent-light/40"}`}
+                className={`group flex w-full items-center gap-4 rounded-2xl border p-2.5 text-left backdrop-blur-md transition duration-500 ${n === i ? "-translate-x-4 border-gold bg-black/75 shadow-xl" : "border-white/15 bg-black/55 hover:border-accent-light/40"}`}
               >
                 <span className="relative h-16 w-24 shrink-0 overflow-hidden rounded-xl">
                   <Photo src={sl.img} alt="" sizes="96px" className="transition duration-500 group-hover:scale-110" />
                 </span>
                 <span className="min-w-0">
-                  <span className="block text-xs font-semibold text-gold">{sl.tag}</span>
-                  <span className="block truncate text-sm font-bold text-fg">{sl.title}</span>
+                  <span className="block text-xs font-semibold text-gold-light">{sl.tag}</span>
+                  <span className="block truncate text-sm font-bold text-white">{sl.title}</span>
                 </span>
               </button>
             </Reveal>
@@ -319,9 +351,9 @@ function Hero() {
       <div className={`${container} absolute inset-x-0 bottom-10 flex items-end gap-6`}>
         <div className="flex flex-1 gap-3">
           {heroSlides.map((sl, n) => (
-            <button key={sl.img} onClick={() => go(n)} aria-label={`Go to slide ${n + 1}`} className="flex-1 text-left">
-              <span className={`block text-xs font-bold transition ${n === i ? "text-gold" : "text-fg/35"}`}>{String(n + 1).padStart(2, "0")}</span>
-              <span className="mt-2 block h-1 overflow-hidden rounded-full bg-fg/10">
+            <button key={sl.title} onClick={() => go(n)} aria-label={`Go to slide ${n + 1}`} className="flex-1 text-left">
+              <span className={`block text-xs font-bold transition ${textShadow} ${n === i ? "text-gold-light" : "text-white/60"}`}>{String(n + 1).padStart(2, "0")}</span>
+              <span className="mt-2 block h-1 overflow-hidden rounded-full bg-white/20">
                 {n < i && <span className={`block h-full w-full ${goldGrad}`} />}
                 {n === i && (
                   <span
@@ -336,7 +368,7 @@ function Hero() {
           ))}
         </div>
         <div className="flex gap-2">
-          <button onClick={() => go(i - 1)} aria-label="Previous slide" className="flex h-12 w-12 items-center justify-center rounded-full border border-fg/20 bg-surface text-fg transition hover:bg-surface-2 hover:text-white"><Icon name="left" className="h-5 w-5" /></button>
+          <button onClick={() => go(i - 1)} aria-label="Previous slide" className="flex h-12 w-12 items-center justify-center rounded-full border border-white/25 bg-black/60 text-white backdrop-blur-md transition hover:bg-black/80"><Icon name="left" className="h-5 w-5" /></button>
           <button onClick={() => go(i + 1)} aria-label="Next slide" className={`${goldGrad} flex h-12 w-12 items-center justify-center rounded-full text-on-gold transition hover:scale-105`}><Icon name="right" className="h-5 w-5" /></button>
         </div>
       </div>
@@ -386,6 +418,18 @@ const assurances: { icon: IconType; title: string; text: string }[] = [
   { icon: FaCalendarDays, title: `${PLAN_MONTHS}-month plan`, text: "Clear timeline for every payment and payout." },
 ];
 
+/* ================= Product portfolio + calculator =================
+   Is section ke rang fixed hex mein hain (accent theme variable par depend nahi),
+   taaki bars, icons aur header hamesha dikhein. */
+const emGrad = "bg-[linear-gradient(135deg,#6EE7B7_0%,#1F8A62_60%,#0B3D2B_100%)]";
+const em = { text: "text-[#5BD3A4]", soft: "bg-[#5BD3A4]/12", border: "border-[#5BD3A4]/30" };
+
+// const tagStyle: Record<NonNullable<Plot["tag"]>, { icon: IconType; cls: string }> = {
+//   Popular: { icon: FaFire, cls: "bg-rose-500/15 text-rose-300 border-rose-400/30" },
+//   "Best value": { icon: FaGem, cls: "bg-[#5BD3A4]/12 text-[#5BD3A4] border-[#5BD3A4]/30" },
+//   "Low entry": { icon: FaSeedling, cls: "bg-sky-500/15 text-sky-300 border-sky-400/30" },
+// };
+
 function Portfolio() {
   const [tab, setTab] = useState<"full" | "fractional">("full");
   const [sel, setSel] = useState<Plot>(fullPlots[0]);
@@ -395,44 +439,46 @@ function Portfolio() {
 
   const heads: { icon: IconType; label: string }[] = [
     { icon: FaRulerCombined, label: "Plot size" },
-    { icon: FaIndianRupeeSign, label: "Price / sq yd" },
-    { icon: FaWallet, label: "Total amount" },
-    ...(SHOW_RETURNS ? [{ icon: FaCoins, label: "Return / month" }, { icon: FaChartLine, label: `Total in ${PLAN_MONTHS} months` }] : []),
+    { icon: FaIndianRupeeSign, label: "Rate / sq yd" },
+    { icon: FaWallet, label: "Plot price" },
+    ...(SHOW_RETURNS ? [{ icon: FaCoins, label: "Monthly return" }, { icon: FaChartLine, label: `${PLAN_MONTHS}-month total` }] : []),
   ];
 
-  const calcRows: { icon: IconType; label: string; value: number; strong?: boolean }[] = [
-    { icon: FaRulerCombined, label: `Plot price (${sel.size} × ${inr(sel.rate)})`, value: sel.total },
-    { icon: FaPercent, label: "Admin charge (2%)", value: admin },
+  const calcRows: { icon: IconType; label: string; note?: string; value: number; strong?: boolean }[] = [
+    { icon: FaRulerCombined, label: "Plot price", note: `${sel.size} × ${inr(sel.rate)}`, value: sel.total },
+    { icon: FaPercent, label: "Admin charge", note: "2% of plot price", value: admin },
     { icon: FaWallet, label: "Amount payable", value: sel.total + admin, strong: true },
   ];
 
+  const barLabel = hm === null ? `Month ${PLAN_MONTHS}: ${inr(sel.monthly * PLAN_MONTHS)}` : `Month ${hm + 1}: ${inr(sel.monthly * (hm + 1))}`;
+
   return (
-    <section id="portfolio" className="relative scroll-mt-20 overflow-hidden bg-page-2 py-14 sm:py-20 lg:py-28">
-      <div className="absolute inset-0 opacity-10"><Photo src={pic("ulp-skyline", 1920, 1100)} alt="" sizes="100vw" /></div>
-      <div className="absolute inset-0 bg-[linear-gradient(180deg,var(--color-page-2)_0%,color-mix(in_srgb,var(--color-page-2)_85%,transparent)_40%,var(--color-page-2)_100%)]" />
-      <span aria-hidden className="pointer-events-none absolute left-1/2 top-40 h-72 w-[40rem] -translate-x-1/2 rounded-full bg-gold opacity-20 blur-3xl" />
-      <span aria-hidden className="pointer-events-none absolute -left-20 bottom-20 h-72 w-72 rounded-full bg-accent opacity-10 blur-3xl" />
+    <section id="portfolio" className="relative scroll-mt-20 overflow-hidden bg-black py-14 sm:py-20 lg:py-28">
+      <div className="absolute inset-0 opacity-10"><Photo src={IMAGES.skyline} alt="" sizes="100vw" /></div>
+      <div className="absolute inset-0 bg-[linear-gradient(180deg,#000_0%,rgba(0,0,0,.85)_40%,#000_100%)]" />
+      <span aria-hidden className="pointer-events-none absolute left-1/2 top-40 h-72 w-[40rem] -translate-x-1/2 rounded-full bg-gold opacity-15 blur-3xl" />
+      <span aria-hidden className="pointer-events-none absolute -left-20 bottom-20 h-72 w-72 rounded-full bg-[#1F8A62] opacity-10 blur-3xl" />
 
       <div className={`${container} relative`}>
         <Reveal from="top">
-          <div className="text-center px-2">
-            <p className="text-sm sm:text-lg font-semibold tracking-[0.25em] sm:tracking-[0.3em] text-fg/70">OUR</p>
+          <div className="px-2 text-center">
+            <p className="text-sm font-semibold tracking-[0.25em] text-white/70 sm:text-lg sm:tracking-[0.3em]">OUR</p>
             <h2 className={`text-3xl font-extrabold leading-tight sm:text-5xl lg:text-6xl ${goldText}`}>Product portfolio</h2>
-            <p className="mt-3 text-sm sm:text-base text-fg/65">Land investment options with a {PLAN_MONTHS}-month plan</p>
+            <p className="mt-3 text-sm text-white/65 sm:text-base">Land investment options with a {PLAN_MONTHS}-month plan</p>
           </div>
         </Reveal>
 
         {/* quick stats */}
-        <div className="mx-auto mt-8 sm:mt-10 grid max-w-4xl grid-cols-2 gap-3 sm:grid-cols-4">
+        <div className="mx-auto mt-8 grid max-w-4xl grid-cols-2 gap-3 sm:mt-10 sm:grid-cols-4">
           {portfolioStats.map((st, n) => {
             const I = st.icon;
             return (
               <Reveal key={st.label} from={sideFrom(n)} delay={n * 100}>
-                <div className="group flex h-full items-center gap-2.5 sm:gap-3 rounded-2xl border border-gold/30 bg-surface/90 p-3 sm:p-3.5 shadow-[0_12px_30px_-22px_rgba(0,0,0,.5)] backdrop-blur transition hover:-translate-y-1 hover:border-gold">
-                  <span className={`${n % 2 ? accentGrad + " text-white" : goldGrad + " text-on-gold"} flex h-9 w-9 sm:h-11 sm:w-11 shrink-0 items-center justify-center rounded-xl transition duration-500 group-hover:rotate-[10deg]`}><I className="h-4 w-4 sm:h-5 sm:w-5" /></span>
+                <div className="group flex h-full items-center gap-3 rounded-2xl border border-gold/30 bg-[#111]/90 p-3 shadow-[0_12px_30px_-22px_rgba(0,0,0,.5)] backdrop-blur transition hover:-translate-y-1 hover:border-gold sm:p-3.5">
+                  <span className={`${n % 2 ? `${emGrad} text-white` : `${goldGrad} text-black`} flex h-10 w-10 shrink-0 items-center justify-center rounded-xl transition duration-500 group-hover:rotate-[10deg] sm:h-11 sm:w-11`}><I className="h-4 w-4 sm:h-5 sm:w-5" /></span>
                   <span className="min-w-0">
-                    <span className="block text-sm sm:text-base font-extrabold text-fg truncate">{st.value}</span>
-                    <span className="block text-[10px] sm:text-xs text-fg/55 truncate">{st.label}</span>
+                    <span className="block truncate text-sm font-extrabold text-white sm:text-base">{st.value}</span>
+                    <span className="block truncate text-[10px] text-white/55 sm:text-xs">{st.label}</span>
                   </span>
                 </div>
               </Reveal>
@@ -441,8 +487,8 @@ function Portfolio() {
         </div>
 
         {/* tabs */}
-        <Reveal from="bottom" delay={150} className="mt-8 sm:mt-10 flex justify-center px-2">
-          <div className="relative grid w-full max-w-xs grid-cols-2 rounded-full border border-gold/50 bg-surface p-1.5 shadow-md sm:w-auto sm:max-w-none">
+        <Reveal from="bottom" delay={150} className="mt-8 flex justify-center px-2 sm:mt-10">
+          <div className="relative grid w-full max-w-xs grid-cols-2 rounded-full border border-gold/50 bg-[#111] p-1.5 shadow-md sm:w-auto sm:max-w-none">
             <span aria-hidden className={`${goldGrad} absolute inset-y-1.5 left-1.5 w-[calc(50%-6px)] rounded-full shadow-lg transition-transform duration-500 ease-[cubic-bezier(.22,.8,.2,1)] ${tab === "fractional" ? "translate-x-full" : ""}`} />
             {(["full", "fractional"] as const).map((t) => {
               const I = t === "full" ? FaHouse : FaLayerGroup;
@@ -451,9 +497,9 @@ function Portfolio() {
                   key={t}
                   onClick={() => { setTab(t); setSel(t === "full" ? fullPlots[0] : fractionalPlots[0]); }}
                   aria-pressed={tab === t}
-                  className={`relative z-10 flex items-center justify-center gap-1.5 sm:gap-2 rounded-full px-3 py-2.5 text-xs sm:text-sm font-bold transition sm:px-8 ${tab === t ? "text-fg" : "text-fg/60 hover:text-fg"}`}
+                  className={`relative z-10 flex items-center justify-center gap-2 rounded-full px-3 py-2.5 text-xs font-bold transition sm:px-8 sm:text-sm ${tab === t ? "text-black" : "text-white/60 hover:text-white"}`}
                 >
-                  <I className="h-3.5 w-3.5 sm:h-4 sm:w-4 shrink-0" />
+                  <I className="h-3.5 w-3.5 shrink-0 sm:h-4 sm:w-4" />
                   <span className="truncate">{t === "full" ? "Full plots" : "Fractional"}</span>
                 </button>
               );
@@ -461,8 +507,9 @@ function Portfolio() {
           </div>
         </Reveal>
 
-        <div className="mt-8 sm:mt-10 grid gap-6 sm:gap-8 lg:grid-cols-[1.25fr_0.75fr] lg:items-start">
-          <div>
+        {/* calculator ko fixed chaudai di hai taaki text wrap na ho */}
+        <div className="mt-8 grid gap-6 sm:mt-10 sm:gap-8 lg:grid-cols-[minmax(0,1fr)_360px] lg:items-start xl:grid-cols-[minmax(0,1fr)_400px]">
+          <div className="min-w-0">
             {/* ---------- MOBILE: card list (below sm) ---------- */}
             <Reveal from="left" delay={200}>
               <div className="space-y-3 sm:hidden">
@@ -474,40 +521,40 @@ function Portfolio() {
                       key={tab + r.size}
                       onClick={() => setSel(r)}
                       style={{ animationDelay: `${n * 100}ms` }}
-                      className={`relative block w-full animate-[slideL_.6s_ease-out_both] overflow-hidden rounded-2xl border-2 p-4 text-left transition ${active ? "border-gold bg-[linear-gradient(135deg,color-mix(in_srgb,var(--color-gold)_14%,transparent),transparent)]" : "border-gold/30 bg-surface"}`}
+                      className={`relative block w-full animate-[slideL_.6s_ease-out_both] overflow-hidden rounded-2xl border-2 p-4 text-left transition ${active ? "border-gold bg-[linear-gradient(135deg,rgba(212,164,55,.14),transparent)]" : "border-gold/25 bg-[#111]"}`}
                     >
                       <div className="flex items-center gap-3">
-                        <span className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${active ? `${goldGrad} text-on-gold shadow-md` : "bg-accent/15 text-accent-light"}`}>
+                        <span className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${active ? `${goldGrad} text-black shadow-md` : `${em.soft} ${em.text}`}`}>
                           {tab === "full" ? <FaHouse className="h-4 w-4" /> : <FaLayerGroup className="h-4 w-4" />}
                         </span>
                         <div className="min-w-0 flex-1">
-                          <div className="flex items-center gap-2">
-                            <span className="text-base font-extrabold text-fg">{r.size}</span>
+                          <div className="flex flex-wrap items-center gap-2">
+                            <span className="whitespace-nowrap text-base font-extrabold text-white">{r.size}</span>
                             {T && r.tag && (
-                              <span className={`inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-[9px] font-bold ${T.cls}`}><T.icon className="h-2.5 w-2.5" />{r.tag}</span>
+                              <span className={`inline-flex items-center gap-1 whitespace-nowrap rounded-full border px-2 py-0.5 text-[10px] font-bold ${T.cls}`}><T.icon className="h-2.5 w-2.5" />{r.tag}</span>
                             )}
                           </div>
-                          <span className="text-xs text-fg/55">{inr(r.rate)} / sq yd</span>
+                          <span className="text-xs text-white/55">{inr(r.rate)} / sq yd</span>
                         </div>
                         {active && <FaCircleCheck className="h-5 w-5 shrink-0 text-gold" />}
                       </div>
 
                       <div className="mt-3 grid grid-cols-2 gap-2 border-t border-gold/15 pt-3">
                         <div>
-                          <p className="flex items-center gap-1 text-[10px] text-fg/50"><FaWallet className="h-2.5 w-2.5" /> Total amount</p>
-                          <p className="mt-0.5 text-sm font-bold text-fg">{inr(r.total)}</p>
+                          <p className="flex items-center gap-1 text-[10px] text-white/50"><FaWallet className="h-2.5 w-2.5" /> Total amount</p>
+                          <p className="mt-0.5 text-sm font-bold text-white">{inr(r.total)}</p>
                         </div>
                         {SHOW_RETURNS && (
                           <div>
-                            <p className="flex items-center gap-1 text-[10px] text-fg/50"><FaCoins className="h-2.5 w-2.5" /> Return / month</p>
-                            <p className="mt-0.5 text-sm font-bold text-gold">{inr(r.monthly)}</p>
+                            <p className="flex items-center gap-1 text-[10px] text-white/50"><FaCoins className="h-2.5 w-2.5" /> Return / month</p>
+                            <p className="mt-0.5 text-sm font-bold text-gold-light">{inr(r.monthly)}</p>
                           </div>
                         )}
                       </div>
                       {SHOW_RETURNS && (
-                        <div className="mt-2 flex items-center justify-between rounded-lg bg-accent/10 px-2.5 py-1.5">
-                          <span className="flex items-center gap-1 text-[10px] text-accent-light"><FaChartLine className="h-2.5 w-2.5" /> Total in {PLAN_MONTHS} months</span>
-                          <span className="text-xs font-bold text-accent-light">{inr(r.monthly * PLAN_MONTHS)}</span>
+                        <div className={`mt-2 flex items-center justify-between rounded-lg px-2.5 py-1.5 ${em.soft}`}>
+                          <span className={`flex items-center gap-1 text-[10px] ${em.text}`}><FaChartLine className="h-2.5 w-2.5" /> Total in {PLAN_MONTHS} months</span>
+                          <span className={`text-xs font-bold ${em.text}`}>{inr(r.monthly * PLAN_MONTHS)}</span>
                         </div>
                       )}
                     </button>
@@ -519,16 +566,16 @@ function Portfolio() {
               </div>
 
               {/* ---------- DESKTOP/TABLET: table (sm and up) ---------- */}
-              <div className="hidden overflow-x-auto rounded-3xl border-2 border-gold/70 bg-surface shadow-[0_30px_60px_-30px_color-mix(in_srgb,var(--color-gold)_55%,transparent)] sm:block">
-                <table className="w-full min-w-[560px] text-left">
-                  <thead className={`${goldGrad} text-on-gold`}>
+              <div className="hidden overflow-x-auto rounded-3xl border-2 border-gold/60 bg-[#0E0E0E] shadow-[0_30px_60px_-30px_rgba(212,164,55,.45)] [scrollbar-color:rgba(212,164,55,.45)_transparent] [scrollbar-width:thin] sm:block lg:overflow-visible">
+                <table className="w-full min-w-[580px] text-left lg:min-w-0">
+                  <thead className={`${goldGrad} text-black`}>
                     <tr>
                       {heads.map((h) => {
                         const I = h.icon;
                         return (
-                          <th key={h.label} className="px-4 lg:px-5 py-3.5 lg:py-4 text-xs lg:text-sm font-extrabold whitespace-nowrap">
-                            <span className="flex items-center gap-2">
-                              <span className="flex h-6 w-6 lg:h-7 lg:w-7 items-center justify-center rounded-lg bg-surface/35"><I className="h-3 w-3 lg:h-3.5 lg:w-3.5" /></span>
+                          <th key={h.label} className="whitespace-nowrap px-3 py-4 text-xs font-extrabold first:pl-5 last:pr-5 xl:px-4 xl:text-sm">
+                            <span className="flex items-center gap-1.5">
+                              <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-md bg-black/15"><I className="h-3 w-3" /></span>
                               {h.label}
                             </span>
                           </th>
@@ -545,32 +592,32 @@ function Portfolio() {
                           key={tab + r.size}
                           onClick={() => setSel(r)}
                           style={{ animationDelay: `${n * 120}ms` }}
-                          className={`group cursor-pointer animate-[slideL_.7s_ease-out_both] border-t border-gold/20 text-fg transition ${active ? "bg-[linear-gradient(90deg,color-mix(in_srgb,var(--color-gold)_16%,transparent),transparent)]" : "hover:bg-page-2"}`}
+                          className={`group cursor-pointer animate-[slideL_.7s_ease-out_both] border-t border-gold/15 text-white transition ${active ? "bg-[linear-gradient(90deg,rgba(212,164,55,.16),transparent)]" : "hover:bg-white/[.03]"}`}
                         >
-                          <td className="relative px-4 lg:px-5 py-4 lg:py-5">
+                          <td className="relative py-4 pl-5 pr-3 xl:pr-4">
                             <span className={`absolute inset-y-3 left-0 w-1 rounded-r-full transition ${active ? goldGrad : "bg-transparent"}`} />
                             <span className="flex items-center gap-3">
-                              <span className={`flex h-9 w-9 lg:h-10 lg:w-10 shrink-0 items-center justify-center rounded-xl transition ${active ? `${goldGrad} text-on-gold shadow-md` : "bg-accent/15 text-accent-light group-hover:bg-accent group-hover:text-white"}`}>
+                              <span className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-xl transition ${active ? `${goldGrad} text-black shadow-md` : `${em.soft} ${em.text} group-hover:bg-[#5BD3A4]/25`}`}>
                                 {tab === "full" ? <FaHouse className="h-4 w-4" /> : <FaLayerGroup className="h-4 w-4" />}
                               </span>
                               <span>
-                                <span className="block text-base lg:text-lg font-extrabold leading-tight">{r.size}</span>
+                                <span className="block whitespace-nowrap text-base font-extrabold leading-tight xl:text-lg">{r.size}</span>
                                 {T && r.tag && (
-                                  <span className={`mt-1 inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-[10px] font-bold ${T.cls}`}><T.icon className="h-2.5 w-2.5" />{r.tag}</span>
+                                  <span className={`mt-1 inline-flex items-center gap-1 whitespace-nowrap rounded-full border px-2 py-0.5 text-[10px] font-bold ${T.cls}`}><T.icon className="h-2.5 w-2.5" />{r.tag}</span>
                                 )}
                               </span>
                             </span>
                           </td>
-                          <td className="px-4 lg:px-5 py-4 lg:py-5 font-semibold text-fg/70 whitespace-nowrap">{inr(r.rate)}</td>
-                          <td className="px-4 lg:px-5 py-4 lg:py-5 font-bold whitespace-nowrap">{inr(r.total)}</td>
+                          <td className="whitespace-nowrap px-3 py-4 text-sm font-semibold text-white/70 xl:px-4 xl:text-base">{inr(r.rate)}</td>
+                          <td className="whitespace-nowrap px-3 py-4 text-sm font-bold xl:px-4 xl:text-base">{inr(r.total)}</td>
                           {SHOW_RETURNS && (
-                            <td className="px-4 lg:px-5 py-4 lg:py-5">
-                              <span className="inline-flex items-center gap-1.5 rounded-lg bg-gold/10 px-2.5 py-1 font-bold text-gold whitespace-nowrap"><FaCoins className="h-3.5 w-3.5" />{inr(r.monthly)}</span>
+                            <td className="px-3 py-4 last:pr-5 xl:px-4">
+                              <span className="inline-flex items-center gap-1.5 whitespace-nowrap rounded-lg bg-gold/10 px-2 py-1 text-sm font-bold text-gold-light xl:text-base"><FaCoins className="h-3 w-3" />{inr(r.monthly)}</span>
                             </td>
                           )}
                           {SHOW_RETURNS && (
-                            <td className="px-4 lg:px-5 py-4 lg:py-5">
-                              <span className="inline-flex items-center gap-1.5 rounded-lg bg-accent/15 px-2.5 py-1 font-bold text-accent-light whitespace-nowrap"><FaChartLine className="h-3.5 w-3.5" />{inr(r.monthly * PLAN_MONTHS)}</span>
+                            <td className="px-3 py-4 last:pr-5 xl:px-4">
+                              <span className={`inline-flex items-center gap-1.5 whitespace-nowrap rounded-lg px-2 py-1 text-sm font-bold xl:text-base ${em.soft} ${em.text}`}><FaChartLine className="h-3 w-3" />{inr(r.monthly * PLAN_MONTHS)}</span>
                             </td>
                           )}
                         </tr>
@@ -578,46 +625,101 @@ function Portfolio() {
                     })}
                   </tbody>
                 </table>
-                <p className="flex items-center justify-center gap-2 border-t border-gold/25 bg-gold/5 px-5 py-4 text-center text-xs font-bold tracking-[0.18em] text-gold">
+                <p className="flex items-center justify-center gap-2 border-t border-gold/20 bg-gold/5 px-5 py-4 text-center text-xs font-bold tracking-[0.18em] text-gold">
                   <FaPercent className="h-3 w-3 shrink-0" /> 2% ADMIN CHARGE APPLICABLE ON EVERY PRODUCT
                 </p>
               </div>
 
-              <p className="mt-3 flex items-center gap-1.5 text-[11px] sm:text-xs text-fg/50"><FaHandPointer className="h-3 w-3 shrink-0" /> Tap a plot to see it in the plan calculator.</p>
+              <p className="mt-3 flex items-center gap-1.5 text-[11px] text-white/50 sm:text-xs"><FaHandPointer className="h-3 w-3 shrink-0" /> Tap a plot to see it in the plan calculator.</p>
             </Reveal>
 
-            {/* assurance cards */}
-            <div className="mt-6 grid grid-cols-1 gap-4 xs:grid-cols-2 sm:grid-cols-3">
+            {/* assurance cards — sab ek jaise gold style mein */}
+            {/* <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-3">
               {assurances.map((as, n) => {
                 const I = as.icon;
                 return (
                   <Reveal key={as.title} from="bottom" delay={300 + n * 120}>
-                    <div className={`group h-full p-4 sm:p-5 ${n % 2 ? cardAccent : cardGold}`}>
-                      <span className={`flex h-10 w-10 sm:h-11 sm:w-11 items-center justify-center rounded-xl transition duration-500 group-hover:scale-110 ${n % 2 ? "bg-accent/15 text-accent-light" : "bg-gold/10 text-gold"}`}><I className="h-4 w-4 sm:h-5 sm:w-5" /></span>
-                      <h3 className="mt-3 text-sm sm:text-base font-bold text-fg">{as.title}</h3>
-                      <p className="mt-1 text-xs sm:text-sm leading-relaxed text-fg/60">{as.text}</p>
+                    <div className="group relative h-full overflow-hidden rounded-3xl border border-gold/30 bg-[linear-gradient(160deg,rgba(212,164,55,.10),#0E0E0E_60%)] p-5 transition duration-300 hover:-translate-y-1 hover:border-gold">
+                      <span className="absolute inset-x-6 top-0 h-px bg-gradient-to-r from-transparent via-gold-light/70 to-transparent" />
+                      <span className={`${goldGrad} flex h-11 w-11 items-center justify-center rounded-xl text-black shadow-[0_8px_20px_-8px_rgba(212,164,55,.6)] transition duration-500 group-hover:scale-110`}><I className="h-5 w-5" /></span>
+                      <h3 className="mt-4 text-base font-bold text-white">{as.title}</h3>
+                      <p className="mt-1 text-sm leading-relaxed text-white/60">{as.text}</p>
                     </div>
                   </Reveal>
                 );
               })}
-            </div>
+            </div> */}
+
+            {/* how the plan works — calculator ke saamne ki khaali jagah bharta hai */}
+            <Reveal from="bottom" delay={200} className="mt-6">
+              <div className="relative overflow-hidden rounded-3xl border border-gold/30 bg-[linear-gradient(160deg,rgba(212,164,55,.08),#0E0E0E_55%)] p-6 sm:p-7">
+                <span aria-hidden className="pointer-events-none absolute -right-16 -top-16 h-48 w-48 rounded-full bg-gold/10 blur-3xl" />
+                <div className="relative flex flex-col justify-between gap-2 sm:flex-row sm:items-end">
+                  <div>
+                    <p className="text-xs font-bold tracking-[0.25em] text-gold">HOW IT WORKS</p>
+                    <h3 className="mt-1 text-xl font-extrabold text-white sm:text-2xl">Your {PLAN_MONTHS}-month plan, step by step</h3>
+                  </div>
+                  <p className="text-sm text-white/55">Selected: <span className="font-bold text-gold-light">{sel.size}</span></p>
+                </div>
+
+                <ol className="relative mt-7 grid gap-5 sm:grid-cols-4 sm:gap-4">
+                  {/* joining line (desktop) */}
+                  <span aria-hidden className="absolute left-[12.5%] right-[12.5%] top-6 hidden h-px bg-[linear-gradient(90deg,#D4A437,#5BD3A4,#D4A437)] opacity-50 sm:block" />
+                  {[
+                    { icon: FaHandPointer, step: "Choose a plot", text: `${sel.size} at ${inr(sel.rate)} / sq yd` },
+                    { icon: FaFileSignature, step: "Sign & pay", text: `${inr(sel.total + admin)} incl. 2% admin` },
+                    ...(SHOW_RETURNS
+                      ? [{ icon: FaCoins, step: "Monthly returns", text: `${inr(sel.monthly)} for ${PLAN_MONTHS} months` }]
+                      : [{ icon: FaCalendarDays, step: `${PLAN_MONTHS}-month plan`, text: "Clear timeline for every step" }]),
+                    { icon: FaCircleCheck, step: "Registry in your name", text: "Sale deed registered to you" },
+                  ].map((s, n) => (
+                    <li key={s.step} className="group relative flex items-start gap-4 sm:flex-col sm:items-center sm:text-center">
+                      <span className="relative z-10 flex h-12 w-12 shrink-0 items-center justify-center rounded-full border-4 border-[#0E0E0E] bg-[#161616] text-gold-light ring-1 ring-gold/40 transition duration-300 group-hover:scale-110 group-hover:ring-gold">
+                        <s.icon className="h-5 w-5" />
+                        <span className={`${goldGrad} absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full text-[10px] font-extrabold text-black`}>{n + 1}</span>
+                      </span>
+                      <span className="min-w-0">
+                        <span className="block text-sm font-bold text-white">{s.step}</span>
+                        <span className="mt-0.5 block text-xs leading-relaxed text-white/55">{s.text}</span>
+                      </span>
+                    </li>
+                  ))}
+                </ol>
+
+                {/* bottom CTA strip */}
+                <div className="relative mt-7 flex flex-col items-start justify-between gap-4 rounded-2xl border border-white/10 bg-black/40 p-4 sm:flex-row sm:items-center">
+                  <div className="flex items-center gap-3">
+                    <span className={`${emGrad} flex h-10 w-10 shrink-0 items-center justify-center rounded-xl text-white`}><FaHandshake className="h-4 w-4" /></span>
+                    <span>
+                      <span className="block text-sm font-bold text-white">Have questions before you invest?</span>
+                      <span className="block text-xs text-white/55">Free site visit and document review with our team.</span>
+                    </span>
+                  </div>
+                  <Link href="/home#contact" className="inline-flex shrink-0 items-center gap-2 rounded-full border border-gold/60 px-5 py-2.5 text-sm font-bold text-gold-light transition hover:bg-gold hover:text-black">
+                    Book a site visit <FaArrowRight className="h-3 w-3" />
+                  </Link>
+                </div>
+              </div>
+            </Reveal>
           </div>
 
           {/* calculator */}
           <Reveal from="right" delay={300}>
-            <div className="relative overflow-hidden rounded-2xl sm:rounded-3xl border border-gold/60 bg-surface shadow-[0_30px_60px_-30px_rgba(0,0,0,.45)]">
-              <div className={`${accentGrad} relative flex items-center gap-3 px-4 sm:px-6 py-4 sm:py-5 text-white`}>
-                <span aria-hidden className="absolute -right-8 -top-8 h-28 w-28 rounded-full border border-white/20" />
-                <span aria-hidden className="absolute -right-2 top-8 h-12 w-12 rounded-full border border-gold-light/40" />
-                <span className={`${goldGrad} flex h-10 w-10 sm:h-11 sm:w-11 shrink-0 items-center justify-center rounded-xl text-on-gold shadow-lg`}><FaCalculator className="h-4 w-4 sm:h-5 sm:w-5" /></span>
+            <div className="relative overflow-hidden rounded-3xl border border-gold/50 bg-[#0E0E0E] shadow-[0_30px_60px_-30px_rgba(0,0,0,.6)] lg:sticky lg:top-24">
+              {/* header */}
+              <div className="relative flex items-center gap-3 overflow-hidden border-b border-gold/25 bg-[linear-gradient(135deg,rgba(212,164,55,.22),rgba(14,14,14,1)_70%)] px-5 py-5">
+                <span aria-hidden className="absolute -right-8 -top-8 h-28 w-28 rounded-full border border-gold/25" />
+                <span aria-hidden className="absolute -right-2 top-8 h-12 w-12 rounded-full border border-gold-light/30" />
+                <span className={`${goldGrad} flex h-11 w-11 shrink-0 items-center justify-center rounded-xl text-black shadow-lg`}><FaCalculator className="h-5 w-5" /></span>
                 <span className="min-w-0">
-                  <span className="block text-base sm:text-lg font-extrabold">Plan calculator</span>
-                  <span className="block text-[11px] sm:text-xs text-white/70">Choose a plot size to see the numbers</span>
+                  <span className="block text-lg font-extrabold text-white">Plan calculator</span>
+                  <span className="block text-xs text-white/60">Choose a plot size to see the numbers</span>
                 </span>
               </div>
 
-              <div className="p-4 sm:p-6">
-                <div className="flex flex-wrap gap-2">
+              <div className="p-5">
+                {/* size chips — ek line mein scroll */}
+                <div className="-mx-1 flex gap-2 overflow-x-auto px-1 pb-1 [scrollbar-width:none]">
                   {allPlots.map((p) => {
                     const on = sel.size === p.size;
                     return (
@@ -625,7 +727,7 @@ function Portfolio() {
                         key={p.size}
                         onClick={() => { setSel(p); setTab(fullPlots.includes(p) ? "full" : "fractional"); }}
                         aria-pressed={on}
-                        className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-[11px] sm:text-xs font-bold transition ${on ? `${goldGrad} border-transparent text-on-gold shadow-md` : "border-fg/15 text-fg/70 hover:border-accent-light hover:text-accent-light"}`}
+                        className={`inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full border px-3 py-1.5 text-xs font-bold transition ${on ? `${goldGrad} border-transparent text-black shadow-md` : "border-white/15 text-white/70 hover:border-gold/60 hover:text-gold-light"}`}
                       >
                         {on && <FaCircleCheck className="h-3 w-3" />}{p.size}
                       </button>
@@ -633,62 +735,70 @@ function Portfolio() {
                   })}
                 </div>
 
-                <dl className="mt-5 sm:mt-6 space-y-2">
+                <dl className="mt-5 space-y-2">
                   {calcRows.map((c) => {
                     const I = c.icon;
                     return (
-                      <div key={c.label} className={`flex items-center gap-2.5 sm:gap-3 rounded-xl px-2.5 sm:px-3 py-2.5 ${c.strong ? "border border-fg/10 bg-page-2" : ""}`}>
-                        <span className={`flex h-7 w-7 sm:h-8 sm:w-8 shrink-0 items-center justify-center rounded-lg ${c.strong ? `${goldGrad} text-on-gold` : "bg-accent/15 text-accent-light"}`}><I className="h-3 w-3 sm:h-3.5 sm:w-3.5" /></span>
-                        <dt className={`flex-1 text-xs sm:text-sm ${c.strong ? "font-bold text-fg" : "text-fg/65"}`}>{c.label}</dt>
-                        <dd className={`${c.strong ? "text-base sm:text-lg font-extrabold" : "text-sm sm:text-base font-semibold"} text-fg whitespace-nowrap`}><CountUp value={c.value} format={inr} /></dd>
+                      <div key={c.label} className={`flex items-center gap-3 rounded-xl px-3 py-3 ${c.strong ? "border border-gold/40 bg-gold/10" : "bg-white/[.03]"}`}>
+                        <span className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg ${c.strong ? `${goldGrad} text-black` : `${em.soft} ${em.text}`}`}><I className="h-3.5 w-3.5" /></span>
+                        <dt className="min-w-0 flex-1">
+                          <span className={`block text-sm ${c.strong ? "font-bold text-white" : "text-white/80"}`}>{c.label}</span>
+                          {c.note && <span className="block truncate text-[11px] text-white/45">{c.note}</span>}
+                        </dt>
+                        <dd className={`whitespace-nowrap ${c.strong ? "text-lg font-extrabold text-gold-light" : "text-base font-semibold text-white"}`}><CountUp value={c.value} format={inr} /></dd>
                       </div>
                     );
                   })}
                 </dl>
 
                 {SHOW_RETURNS && (
-                  <div className="mt-5 rounded-2xl border border-gold/40 bg-[linear-gradient(160deg,color-mix(in_srgb,var(--color-gold)_12%,var(--color-surface))_0%,var(--color-surface)_100%)] p-4 sm:p-5">
-                    <div className="grid grid-cols-2 gap-2.5 sm:gap-3">
-                      <div className="rounded-xl bg-surface p-2.5 sm:p-3 shadow-sm">
-                        <p className="flex items-center gap-1.5 text-[10px] sm:text-xs text-fg/55"><FaCoins className="h-3 w-3 text-gold shrink-0" /> Return / month</p>
-                        <p className="mt-1 text-base sm:text-xl font-extrabold text-fg"><CountUp value={sel.monthly} format={inr} /></p>
+                  <div className="mt-5 rounded-2xl border border-gold/30 bg-[linear-gradient(160deg,rgba(212,164,55,.10),#0E0E0E_70%)] p-4">
+                    <div className="grid grid-cols-2 gap-3">
+                      <div className="rounded-xl border border-white/10 bg-black/40 p-3">
+                        <p className="flex items-center gap-1.5 whitespace-nowrap text-[11px] text-white/55"><FaCoins className="h-3 w-3 shrink-0 text-gold" /> Return / month</p>
+                        <p className="mt-1 whitespace-nowrap text-lg font-extrabold text-white xl:text-xl"><CountUp value={sel.monthly} format={inr} /></p>
                       </div>
-                      <div className="rounded-xl bg-surface p-2.5 sm:p-3 shadow-sm">
-                        <p className="flex items-center gap-1.5 text-[10px] sm:text-xs text-fg/55"><FaSackDollar className="h-3 w-3 text-accent-light shrink-0" /> Total in {PLAN_MONTHS} months</p>
-                        <p className="mt-1 text-base sm:text-xl font-extrabold text-fg"><CountUp value={sel.monthly * PLAN_MONTHS} format={inr} /></p>
+                      <div className="rounded-xl border border-white/10 bg-black/40 p-3">
+                        <p className="flex items-center gap-1.5 whitespace-nowrap text-[11px] text-white/55"><FaSackDollar className={`h-3 w-3 shrink-0 ${em.text}`} /> In {PLAN_MONTHS} months</p>
+                        <p className={`mt-1 whitespace-nowrap text-lg font-extrabold xl:text-xl ${em.text}`}><CountUp value={sel.monthly * PLAN_MONTHS} format={inr} /></p>
                       </div>
                     </div>
 
-                    <p className="mt-4 flex h-5 items-center gap-1.5 text-[11px] sm:text-xs font-semibold text-fg/70">
-                      <FaChartLine className="h-3 w-3 text-accent-light shrink-0" />
-                      <span className="truncate">{hm === null ? "Tap bars for month totals" : `Month ${hm + 1}: ${inr(sel.monthly * (hm + 1))}`}</span>
+                    {/* bar chart */}
+                    <p className="mt-4 flex items-center justify-between gap-2 text-xs font-semibold text-white/70">
+                      <span className="flex items-center gap-1.5"><FaChartLine className={`h-3 w-3 shrink-0 ${em.text}`} /> Growth over {PLAN_MONTHS} months</span>
+                      <span className="whitespace-nowrap text-gold-light">{barLabel}</span>
                     </p>
-                    <div key={sel.size} className="mt-2 flex h-16 sm:h-24 items-end gap-[2px] sm:gap-[3px]" onMouseLeave={() => setHm(null)}>
-                      {Array.from({ length: PLAN_MONTHS }).map((_, k) => (
-                        <span
-                          key={k}
-                          onMouseEnter={() => setHm(k)}
-                          onClick={() => setHm(k)}
-                          style={{ height: `${((k + 1) / PLAN_MONTHS) * 100}%`, animationDelay: `${k * 35}ms` }}
-                          className={`flex-1 origin-bottom animate-[growUp_.5s_ease-out_both] cursor-pointer rounded-t-sm transition-colors ${hm === k || (hm === null && k === PLAN_MONTHS - 1) ? goldGrad : hm !== null && k < hm ? "bg-accent" : hm !== null ? "bg-accent/25" : "bg-accent"}`}
-                        />
-                      ))}
+                    <div key={sel.size} className="mt-3 flex h-24 items-end gap-[3px] rounded-lg border-b border-white/10" onMouseLeave={() => setHm(null)}>
+                      {Array.from({ length: PLAN_MONTHS }).map((_, k) => {
+                        const on = hm === null ? k === PLAN_MONTHS - 1 : hm === k;
+                        const past = hm === null || k < hm;
+                        return (
+                          <span
+                            key={k}
+                            onMouseEnter={() => setHm(k)}
+                            onClick={() => setHm(k)}
+                            style={{ height: `${Math.max(6, ((k + 1) / PLAN_MONTHS) * 100)}%`, animationDelay: `${k * 30}ms` }}
+                            className={`flex-1 origin-bottom animate-[growUp_.5s_ease-out_both] cursor-pointer rounded-t-[3px] transition-colors ${on ? goldGrad : past ? "bg-[linear-gradient(180deg,#5BD3A4,#1F8A62)]" : "bg-white/10"}`}
+                          />
+                        );
+                      })}
                     </div>
-                    <div className="mt-1.5 flex justify-between text-[9px] sm:text-[10px] text-fg/45"><span>Month 1</span><span>Month {PLAN_MONTHS}</span></div>
+                    <div className="mt-1.5 flex justify-between text-[10px] text-white/45"><span>Month 1</span><span>Month {PLAN_MONTHS}</span></div>
                   </div>
                 )}
 
                 <Link href="/home#contact" className={`${btnPrimary} group mt-6 w-full justify-center text-sm sm:text-base`}>
                   <span className="truncate">Enquire about {sel.size}</span><FaArrowRight className="h-3.5 w-3.5 shrink-0 transition group-hover:translate-x-1" />
                 </Link>
-                <p className="mt-3 flex items-start gap-1.5 text-[10px] sm:text-[11px] leading-relaxed text-fg/45"><FaCircleInfo className="mt-0.5 h-3 w-3 shrink-0" /> Stamp duty and registration fees are extra, at government rates.</p>
+                <p className="mt-3 flex items-start gap-1.5 text-[11px] leading-relaxed text-white/45"><FaCircleInfo className="mt-0.5 h-3 w-3 shrink-0" /> Stamp duty and registration fees are extra, at government rates.</p>
               </div>
             </div>
           </Reveal>
         </div>
 
         <Reveal from="bottom">
-          <p className="mx-auto mt-8 sm:mt-10 max-w-3xl text-center text-[11px] sm:text-xs leading-relaxed text-fg/50 px-2">
+          <p className="mx-auto mt-8 max-w-3xl px-2 text-center text-[11px] leading-relaxed text-white/50 sm:mt-10 sm:text-xs">
             Returns are paid only as per the terms of your signed agreement. Real estate investment carries risk. Please read the agreement in full and take independent legal and financial advice before investing.
           </p>
         </Reveal>
@@ -716,9 +826,9 @@ const zoneToneBorder: Record<ZoneTone, string> = { gold: "border-[#D4A437]/50 ho
 const zoneToneGlow: Record<ZoneTone, string> = { gold: "bg-[#D4A437]/20", purple: "bg-[#7B3FC4]/25", accent: "bg-[#1F8A62]/25" };
 
 const dholeraZones: { no: string; title: string; motto: string[]; points: string[]; icon: IconType; tone: ZoneTone; img: string }[] = [
-  { no: "01", title: "Residential", motto: ["Live", "Work", "Grow"], points: ["Modern living spaces", "Integrated communities", "Better quality of life"], icon: FaHouseChimney, tone: "gold", img: pic("dh-zone-res", 900, 520) },
-  { no: "02", title: "Industrial", motto: ["Innovate", "Manufacture", "Lead"], points: ["World-class industrial zones", "MSME and global opportunities", "Employment and economic growth"], icon: FaIndustry, tone: "purple", img: pic("dh-zone-ind", 900, 520) },
-  { no: "03", title: "Commercial", motto: ["Business", "Connect", "Expand"], points: ["Retail and business hubs", "Offices and financial districts", "Global investment opportunities"], icon: FaBuilding, tone: "accent", img: pic("dh-zone-com", 900, 520) },
+  { no: "01", title: "Residential", motto: ["Live", "Work", "Grow"], points: ["Modern living spaces", "Integrated communities", "Better quality of life"], icon: FaHouseChimney, tone: "gold", img: IMAGES.zones.residential },
+  { no: "02", title: "Industrial", motto: ["Innovate", "Manufacture", "Lead"], points: ["World-class industrial zones", "MSME and global opportunities", "Employment and economic growth"], icon: FaIndustry, tone: "purple", img: IMAGES.zones.industrial },
+  { no: "03", title: "Commercial", motto: ["Business", "Connect", "Expand"], points: ["Retail and business hubs", "Offices and financial districts", "Global investment opportunities"], icon: FaBuilding, tone: "accent", img: IMAGES.zones.commercial },
 ];
 
 const dholeraPillars: { icon: IconType; label: string }[] = [
@@ -924,7 +1034,7 @@ function Missed() {
 
           <Reveal from="right" delay={200}>
             <div className="relative isolate flex h-full min-h-[460px] flex-col items-center overflow-hidden rounded-[2rem] border-2 border-gold p-8 text-center shadow-2xl">
-              <div className="absolute inset-0 -z-10"><Photo src={pic("ulp-road", 1200, 1000)} alt="" sizes="(min-width:1024px) 50vw, 100vw" /></div>
+              <div className="absolute inset-0 -z-10"><Photo src={IMAGES.road} alt="" sizes="(min-width:1024px) 50vw, 100vw" /></div>
               <div className="absolute inset-0 -z-10 bg-[linear-gradient(180deg,color-mix(in_srgb,var(--color-page)_97%,transparent)_0%,color-mix(in_srgb,var(--color-page)_75%,transparent)_45%,color-mix(in_srgb,var(--color-page)_5%,transparent)_100%)]" />
               <span aria-hidden className="absolute left-6 top-24 animate-[fly_6s_ease-in-out_infinite] text-accent-light"><Icon name="plane" className="h-8 w-8 rotate-45" /></span>
               <p className="mt-6 text-3xl font-bold text-fg">But not</p>
@@ -1154,7 +1264,7 @@ function Connectivity() {
           <Reveal from="right" delay={200} className="relative">
             <div className="relative aspect-[4/3.4] overflow-hidden rounded-[2rem] border-4 border-gold shadow-[0_40px_80px_-30px_rgba(0,0,0,.7)]">
               {connectivity.map((c, n) => (
-                <div key={c.img} aria-hidden={n !== a} className={`absolute inset-0 transition-all duration-[1100ms] ease-out ${n === a ? "scale-100 opacity-100" : "scale-110 opacity-0"}`}>
+                <div key={c.title} aria-hidden={n !== a} className={`absolute inset-0 transition-all duration-[1100ms] ease-out ${n === a ? "scale-100 opacity-100" : "scale-110 opacity-0"}`}>
                   <Photo src={c.img} alt={c.title} sizes="(min-width:1024px) 50vw, 100vw" />
                 </div>
               ))}
@@ -1175,8 +1285,6 @@ function Connectivity() {
     </section>
   );
 }
-
-
 
 /* ================= Page ================= */
 export default function PortfolioPage() {
@@ -1210,8 +1318,6 @@ export default function PortfolioPage() {
         <CityPlan />
         <Infrastructure />
         <Connectivity />
-      
-       
       </main>
     </div>
   );

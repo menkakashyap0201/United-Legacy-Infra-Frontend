@@ -27,16 +27,58 @@ const container = "mx-auto w-full max-w-7xl px-5 sm:px-8";
 const btnPrimary = `${goldGrad} inline-flex items-center justify-center gap-2 rounded-full px-7 py-3.5 text-sm font-semibold text-on-gold shadow-[0_12px_30px_-10px_color-mix(in_srgb,var(--color-gold)_80%,transparent)] transition hover:-translate-y-0.5 hover:shadow-[0_18px_35px_-10px_color-mix(in_srgb,var(--color-gold)_90%,transparent)]`;
 const btnOutline = "inline-flex items-center justify-center gap-2 rounded-full border border-fg/15 bg-surface px-7 py-3.5 text-sm font-semibold text-fg transition hover:border-accent-light hover:text-accent-light";
 
-/* Dummy images — replace with your own photos later */
-const pic = (seed: string, w: number, h: number) => `https://picsum.photos/seed/${seed}/${w}/${h}`;
+/* ================= Images: yahan apne direct links daalo =================
+   - Remote link:  "https://your-cdn.com/partner-meet.jpg"
+   - Local file:   public/images/partner-meet.jpg  →  "/images/partner-meet.jpg"   (hamesha "/" se shuru, "./" nahi) */
+const IMAGES = {
+  hero: {
+    partnerMeet: "/partner-meet.png",
+    villa: "https://www.smartcitypk.com/assets/uploads/villas_5e621fbc1d250.png",
+    trip: "https://media.istockphoto.com/id/1185384608/photo/young-men-planning-vacation-trip-and-searching-information-or-booking-an-hotel-on-a-smart.jpg?s=612x612&w=0&k=20&c=sGRTVMIVeSWExTAvB6p7IblQWIEPLm7PwQj_hUO8reU=",
+    plot: "https://workians.com/media/blogs/1779712314_1402_dholera.png",
+  },
+  /* 10 tiers — level 1 se 10 tak, reward ki photo */
+  tiers: [
+    "/starter.png",
+    "https://www.skywaytour.com/media/gallery/2024-01-01-07-06-27-ExperienceMaldivesbeforeitdisappears03.jpg",
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6emyAcY5AUGQ1jNkmtpNqYrww37cGmatN4d5n7wNeUMVqyhcp9GPNFtQ-&s=10",
+    "https://imagecdn.99acres.com/media1/39364/18/787298782M-1783052974799.webp",
+    "https://5.imimg.com/data5/XK/ZX/FO/SELLER-80740800/dholera-metro-city-amenities-7-jpg.jpg",
+    "https://cdn.blox.xyz/projects-2x/av-group-av-smart-city-elevation-1704952272.webp",
+    "https://rei.wlimg.com/proj_images/project53748/proj_img-53748-66612_7.jpg",
+    "https://cdn.blox.xyz/projects-2x/av-group-av-smart-city-elevation-1704952302.webp",
+    "https://mirrikh.com/wp-content/uploads/2024/10/dholera-smart-city-plot-price-2.jpg",
+    "https://www.ethereuminfracon.com/assets/image/projects/project_hero_main_png_1775711651738.png",
+  ],
+  commitment: {
+    registry: "/registry.png",
+    agreement: "/commit-agreement.png",
+    buyback: "/buypack.png",
+  },
+  vision: {
+    main: "https://marvel-b1-cdn.bc0a.com/f00000000227455/www.mvpind.com/wp-content/uploads/2017/10/Today%E2%80%99s-Advanced-Composites-Take-Center-Stage-in-Building-Design.jpg",
+    small1: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS2tOO8wS5tazDwent6nuCuyAMoDNDp6h7cur_GIa3AHautttlzR-0loBE&s=10",
+    small2: "https://globalcitygurugram.in/wp-content/uploads/2022/03/HOTEL-TOWERS-PEDASTRIAN-PLAZA-VIEW-scaled.jpg",
+  },
+  rewards: {
+    trips: "https://etimg.etb2bimg.com/thumb/msid-114527719,imgsize-115856,width-1200,height=627,overlay-ettravel,resizemode-75/research-and-statistics/research/holiday-spending-travel-soar-indians-focus-on-unique-gifts-and-reward-programs-finds-amex-survey.jpg",
+    plots: "https://dholeraacres.com/wp-content/uploads/2026/06/dholera_plot_prices-1-780x780.jpg",
+    villas: "https://klmprojects.in/wp-content/uploads/2026/04/villas.png",
+    farmhouses: "https://thefarmstays.com/wp-content/uploads/2026/04/the_farmstays_farmhouse_kokapet.jpg",
+    cars: "https://autobest.co.in/uploads/blog/075130517030.jpeg",
+    villaAbroad: "https://robbreport.com/wp-content/uploads/2017/11/manzu-exterior-deck-5.jpg?w=1000",
+    awards: "/award-smart-city.png",
+    estates: "https://ajmera.com/wp-content/uploads/2023/11/smart-cities.jpg",
+  },
+};
 
 /* ================= Data (from the presentation) ================= */
 
 const heroSlides = [
-  { img: pic("ulpt-hero-1", 1000, 1000), label: "Partner meet" },
-  { img: pic("ulpt-hero-2", 1000, 1000), label: "Luxury villa reward" },
-  { img: pic("ulpt-hero-3", 1000, 1000), label: "International trip" },
-  { img: pic("ulpt-hero-4", 1000, 1000), label: "Premium plot" },
+  { img: IMAGES.hero.partnerMeet, label: "Partner meet" },
+  { img: IMAGES.hero.villa, label: "Luxury villa reward" },
+  { img: IMAGES.hero.trip, label: "International trip" },
+  { img: IMAGES.hero.plot, label: "Premium plot" },
 ];
 
 type Tone = "gold" | "blue" | "purple" | "bronze";
@@ -48,16 +90,16 @@ const toneBorder: Record<Tone, string> = { gold: "border-gold/50", blue: "border
 /* amounts in lakh */
 type Tier = { name: string; group: string; min: number; max: number; pct: number; reward: string; icon: IconType; rewardIcon: IconType; tone: Tone; img: string };
 const tiers: Tier[] = [
-  { name: "Advisor", group: "Starter", min: 15, max: 30, pct: 3, reward: "Residential programme", icon: FaUserTie, rewardIcon: FaBed, tone: "gold", img: pic("ulpt-t1", 700, 460) },
-  { name: "Channel Partner (Senior)", group: "Starter", min: 30, max: 100, pct: 4, reward: "Couple international trip", icon: FaHandshake, rewardIcon: FaPlane, tone: "blue", img: pic("ulpt-t2", 700, 460) },
-  { name: "Associate Channel Partner", group: "Growth", min: 100, max: 500, pct: 5, reward: "₹10 lakh plot", icon: FaStar, rewardIcon: FaMapLocationDot, tone: "gold", img: pic("ulpt-t3", 700, 460) },
-  { name: "Senior Executive Channel Partner", group: "Growth", min: 500, max: 1000, pct: 6, reward: "₹25 lakh plot", icon: FaGem, rewardIcon: FaMapLocationDot, tone: "purple", img: pic("ulpt-t4", 700, 460) },
-  { name: "Elite Channel Partner", group: "Leader", min: 1000, max: 2500, pct: 7, reward: "₹50 lakh plot", icon: FaCrown, rewardIcon: FaMapLocationDot, tone: "gold", img: pic("ulpt-t5", 700, 460) },
-  { name: "Premium Channel Partner", group: "Leader", min: 2500, max: 7500, pct: 8, reward: "₹1 crore villa", icon: FaGem, rewardIcon: FaHouseChimney, tone: "blue", img: pic("ulpt-t6", 700, 460) },
-  { name: "Strategic Channel Partner", group: "Leader", min: 7500, max: 15000, pct: 10, reward: "₹2 crore farmhouse + Audi", icon: FaHandshake, rewardIcon: FaCarSide, tone: "purple", img: pic("ulpt-t7", 700, 460) },
-  { name: "National Channel Partner", group: "Legend", min: 15000, max: 30000, pct: 15, reward: "₹5 crore villa + E-Class Mercedes", icon: FaStar, rewardIcon: FaCarSide, tone: "bronze", img: pic("ulpt-t8", 700, 460) },
-  { name: "Master Channel Partner", group: "Legend", min: 30000, max: 50000, pct: 20, reward: "Family villa in Dubai (₹20 crore) + Defender", icon: FaCrown, rewardIcon: FaHouseChimney, tone: "gold", img: pic("ulpt-t9", 700, 460) },
-  { name: "Super Channel Partner", group: "Legend", min: 50000, max: 100000, pct: 25, reward: "Luxury estate + super car", icon: FaGem, rewardIcon: FaTrophy, tone: "blue", img: pic("ulpt-t10", 700, 460) },
+  { name: "Advisor", group: "Starter", min: 15, max: 30, pct: 3, reward: "Residential programme", icon: FaUserTie, rewardIcon: FaBed, tone: "gold", img: IMAGES.tiers[0] },
+  { name: "Channel Partner (Senior)", group: "Starter", min: 30, max: 100, pct: 4, reward: "Couple international trip", icon: FaHandshake, rewardIcon: FaPlane, tone: "blue", img: IMAGES.tiers[1] },
+  { name: "Associate Channel Partner", group: "Growth", min: 100, max: 500, pct: 5, reward: "₹10 lakh plot", icon: FaStar, rewardIcon: FaMapLocationDot, tone: "gold", img: IMAGES.tiers[2] },
+  { name: "Senior Executive Channel Partner", group: "Growth", min: 500, max: 1000, pct: 6, reward: "₹25 lakh plot", icon: FaGem, rewardIcon: FaMapLocationDot, tone: "purple", img: IMAGES.tiers[3] },
+  { name: "Elite Channel Partner", group: "Leader", min: 1000, max: 2500, pct: 7, reward: "₹50 lakh plot", icon: FaCrown, rewardIcon: FaMapLocationDot, tone: "gold", img: IMAGES.tiers[4] },
+  { name: "Premium Channel Partner", group: "Leader", min: 2500, max: 7500, pct: 8, reward: "₹1 crore villa", icon: FaGem, rewardIcon: FaHouseChimney, tone: "blue", img: IMAGES.tiers[5] },
+  { name: "Strategic Channel Partner", group: "Leader", min: 7500, max: 15000, pct: 10, reward: "₹2 crore farmhouse + Audi", icon: FaHandshake, rewardIcon: FaCarSide, tone: "purple", img: IMAGES.tiers[6] },
+  { name: "National Channel Partner", group: "Legend", min: 15000, max: 30000, pct: 15, reward: "₹5 crore villa + E-Class Mercedes", icon: FaStar, rewardIcon: FaCarSide, tone: "bronze", img: IMAGES.tiers[7] },
+  { name: "Master Channel Partner", group: "Legend", min: 30000, max: 50000, pct: 20, reward: "Family villa in Dubai (₹20 crore) + Defender", icon: FaCrown, rewardIcon: FaHouseChimney, tone: "gold", img: IMAGES.tiers[8] },
+  { name: "Super Channel Partner", group: "Legend", min: 50000, max: 100000, pct: 25, reward: "Luxury estate + super car", icon: FaGem, rewardIcon: FaTrophy, tone: "blue", img: IMAGES.tiers[9] },
 ];
 
 const steps: { icon: IconType; title: string; text: string }[] = [
@@ -68,9 +110,9 @@ const steps: { icon: IconType; title: string; text: string }[] = [
 ];
 
 const commitment: { icon: IconType; title: string; sub: string; text: string; img: string; tone: "gold" | "blue" }[] = [
-  { icon: FaLandmark, title: "Registry", sub: "In your name", text: "You receive the legal property registry in your name, for complete ownership and peace of mind.", img: pic("ulpt-c1", 800, 700), tone: "gold" },
-  { icon: FaFileSignature, title: "Agreement", sub: "For your security", text: "A formal agreement clearly sets out every term and condition for a transparent, hassle-free investment.", img: pic("ulpt-c2", 800, 700), tone: "blue" },
-  { icon: FaShieldHalved, title: "25-month buyback", sub: "Policy", text: "A 25-month buyback option, on the exact terms written in your signed agreement.", img: pic("ulpt-c3", 800, 700), tone: "gold" },
+  { icon: FaLandmark, title: "Registry", sub: "In your name", text: "You receive the legal property registry in your name, for complete ownership and peace of mind.", img: IMAGES.commitment.registry, tone: "gold" },
+  { icon: FaFileSignature, title: "Agreement", sub: "For your security", text: "A formal agreement clearly sets out every term and condition for a transparent, hassle-free investment.", img: IMAGES.commitment.agreement, tone: "blue" },
+  { icon: FaShieldHalved, title: "25-month buyback", sub: "Policy", text: "A 25-month buyback option, on the exact terms written in your signed agreement.", img: IMAGES.commitment.buyback, tone: "gold" },
 ];
 
 const vision: [string, string][] = [
@@ -85,14 +127,14 @@ const vision: [string, string][] = [
 ];
 
 const rewardsGallery = [
-  { img: pic("ulpt-r1", 700, 500), label: "International trips" },
-  { img: pic("ulpt-r2", 700, 500), label: "Premium plots" },
-  { img: pic("ulpt-r3", 700, 500), label: "Luxury villas" },
-  { img: pic("ulpt-r4", 700, 500), label: "Farmhouses" },
-  { img: pic("ulpt-r5", 700, 500), label: "Luxury cars" },
-  { img: pic("ulpt-r6", 700, 500), label: "Family villa abroad" },
-  { img: pic("ulpt-r7", 700, 500), label: "Partner awards" },
-  { img: pic("ulpt-r8", 700, 500), label: "Luxury estates" },
+  { img: IMAGES.rewards.trips, label: "International trips" },
+  { img: IMAGES.rewards.plots, label: "Premium plots" },
+  { img: IMAGES.rewards.villas, label: "Luxury villas" },
+  { img: IMAGES.rewards.farmhouses, label: "Farmhouses" },
+  { img: IMAGES.rewards.cars, label: "Luxury cars" },
+  { img: IMAGES.rewards.villaAbroad, label: "Family villa abroad" },
+  { img: IMAGES.rewards.awards, label: "Partner awards" },
+  { img: IMAGES.rewards.estates, label: "Luxury estates" },
 ];
 
 const socials: { icon: IconType; label: string }[] = [
@@ -112,6 +154,7 @@ const fmtRupees = (r: number) => {
 /* ================= Helpers ================= */
 function Photo({ src, alt, sizes, priority, className = "" }: { src: string; alt: string; sizes: string; priority?: boolean; className?: string }) {
   const [ok, setOk] = useState(true);
+  useEffect(() => setOk(true), [src]); // link badalne par dobara try kare
   return (
     <div className="absolute inset-0 bg-[linear-gradient(135deg,var(--color-surface)_0%,var(--color-surface-2)_100%)]">
       {ok && <Image src={src} alt={alt} fill sizes={sizes} priority={priority} unoptimized={src.startsWith("http")} onError={() => setOk(false)} className={`object-cover ${className}`} />}
@@ -194,7 +237,6 @@ function Heading({ eyebrow, title, text, center = false }: { eyebrow?: string; t
   );
 }
 
-
 function Ring({ className }: { className: string }) {
   return <span aria-hidden className={`pointer-events-none absolute rounded-full border-gold ${className}`} />;
 }
@@ -229,7 +271,6 @@ function Frame({ src, alt = "", tone = "gold", className = "", sizes = "400px", 
     </div>
   );
 }
-
 
 /* ================= Hero: text + house photo-frame carousel ================= */
 function Hero() {
@@ -297,7 +338,7 @@ function Hero() {
           <div className={`relative aspect-square ${goldGrad} p-[6px] shadow-[0_40px_80px_-30px_rgba(0,0,0,.5)]`} style={{ clipPath: houseClipL, borderRadius: 26 }}>
             <div className="relative h-full w-full overflow-hidden" style={{ clipPath: houseClipL, borderRadius: 22 }}>
               {heroSlides.map((s, n) => (
-                <div key={s.img} aria-hidden={n !== i} className={`absolute inset-0 transition-all duration-[1200ms] ease-out ${n === i ? "scale-100 opacity-100" : "scale-110 opacity-0"}`}>
+                <div key={s.label} aria-hidden={n !== i} className={`absolute inset-0 transition-all duration-[1200ms] ease-out ${n === i ? "scale-100 opacity-100" : "scale-110 opacity-0"}`}>
                   <Photo src={s.img} alt={s.label} sizes="(min-width:1024px) 40vw, 90vw" priority={n === 0} />
                 </div>
               ))}
@@ -626,16 +667,16 @@ function Vision() {
         {/* frame collage */}
         <Reveal from="left" className="relative mx-auto w-full max-w-lg pb-10 sm:pr-16">
           <Ring className="-top-5 left-[40%] h-7 w-7 border-[3px]" />
-          <HouseFrame src={pic("ulpt-vision", 900, 1000)} alt="City skyline at dusk" sizes="(min-width:1024px) 40vw, 100vw" tone="gold" className="aspect-[4/4.5]">
+          <HouseFrame src={IMAGES.vision.main} alt="City skyline at dusk" sizes="(min-width:1024px) 40vw, 100vw" tone="gold" className="aspect-[4/4.5]">
             <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 to-transparent p-6 pt-24">
               <p className={`${script.className} text-4xl leading-tight text-gold-light`}>Building today, creating generations.</p>
             </div>
           </HouseFrame>
           <Reveal from="top" delay={400} className="absolute right-0 top-[12%] hidden w-[36%] sm:block">
-            <Frame src={pic("ulpt-vision-2", 400, 340)} tone="blue" className="aspect-[4/3.4] animate-[float_6s_ease-in-out_infinite]" />
+            <Frame src={IMAGES.vision.small1} tone="blue" className="aspect-[4/3.4] animate-[float_6s_ease-in-out_infinite]" />
           </Reveal>
           <Reveal from="bottom" delay={600} className="absolute bottom-24 right-2 hidden w-[30%] sm:block">
-            <Frame src={pic("ulpt-vision-3", 400, 340)} tone="gold" className="aspect-square animate-[float_7s_ease-in-out_1s_infinite]" />
+            <Frame src={IMAGES.vision.small2} tone="gold" className="aspect-square animate-[float_7s_ease-in-out_1s_infinite]" />
           </Reveal>
           <div className="absolute -bottom-2 left-6 z-10 flex items-center gap-3 rounded-2xl border border-gold/50 bg-surface px-5 py-3 shadow-xl">
             <span className={`${goldGrad} flex h-10 w-10 items-center justify-center rounded-xl text-on-gold`}><FaAward className="h-5 w-5" /></span>
@@ -697,7 +738,6 @@ function RewardsMarquee() {
   );
 }
 
-
 /* ================= Page ================= */
 export default function VisionPage() {
   return (
@@ -722,7 +762,6 @@ export default function VisionPage() {
         <Commitment />
         <Vision />
         <RewardsMarquee />
-       
       </main>
     </div>
   );

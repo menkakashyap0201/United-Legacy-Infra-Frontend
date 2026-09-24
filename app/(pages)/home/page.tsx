@@ -13,7 +13,34 @@ const goldGrad = "bg-[linear-gradient(135deg,var(--color-gold-light)_0%,var(--co
 const container = "mx-auto w-full max-w-7xl px-5 sm:px-8";
 const btnPrimary = `${goldGrad} inline-flex items-center justify-center gap-2 rounded-full px-7 py-3.5 text-sm font-semibold text-navy-deep shadow-[0_12px_30px_-10px_rgba(212,164,55,.55)] transition hover:-translate-y-0.5 hover:shadow-[0_18px_35px_-10px_rgba(212,164,55,.75)]`;
 
-const pic = (seed: string, w: number, h: number) => `https://picsum.photos/seed/${seed}/${w}/${h}`;
+/* ================= Images: yahan apne direct links daalo =================
+   - Remote link:  "https://your-cdn.com/plot-100.jpg"
+   - Local file:   public/images/plot-100.jpg  →  "/images/plot-100.jpg"  */
+const IMAGES = {
+  hero: [
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTymNtfSjVG8RhcQLbsygcK9icLBlB2wnWpmldAGmBWemMCrEmGQUJ7xAGx&s=10",
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTsS3Gga6gFmgyxiHv4XkRemZ-dny-iDAPCp8-fYilE6VmVU4Ukjv52DCA&s=10",
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSYtGbyYTMTs_xF3nXL4J1nt4A_wLRxJkZLpnJDzp6-8jYEHg2lUVhTMu0&s=10",
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnBfHbBqGKGN4Cngp2wPKRwZ7QvT9c55Usp3PsCNhfCdLw75_8jrAgwu0&s=10",
+  ],
+  mission: "https://orocircle.com/wp-content/uploads/2024/11/luxury-villas.webp",
+  mission2: "https://assurancedevelopers.com/wp-content/uploads/2024/09/Luxury-Villas-Banglore.jpg",
+  infra: "/verification.png",
+  infra2: "https://storage.googleapis.com/maadiveeduvas.appspot.com/blogs/5c0d6fe0-ee76-4461-8f87-7f25ab5f5837_optimized.jpg",
+  zoneResidential: "https://www.surahousing.com/img/blog/things%20-Know-before.webp",
+  zoneIndustrial: "https://www.industrialplots.co.in/admin/upload/1627972541-imt-kharkhoda-banner.webp",
+  zoneCommercial: "https://res.cloudinary.com/jerrick/image/upload/d_642250b563292b35f27461a7.png,f_jpg,fl_progressive,q_auto,w_1024/6437b478eab5fb001d2579bf.jpg",
+  plot100: "https://shreekatariya.com/wp-content/uploads/2026/05/sarthak-smart-city-internal-road-layout-s.webp",
+  plot200: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS7LYVPEuH0DrYsfFbw9SLoRjTN_l7DvukAISkVFfVSvcNETNU1Cd3jT11D&s=10",
+  plot125: "https://smartcitymohaliplots.realtynivesh.com/img/1.jpeg",
+  plot50: "https://imagecdn.99acres.com/media1/37658/10/753170942M-1777812229433.webp",
+  plot62: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQOAHT7aKOdq-vq0EFJC32JtNDS2i2PVQSKHF4bdmo43VRG4BmPALVQqa4Q&s=10",
+  dubai: [
+    "https://aarkdevelopers.com/wp-content/uploads/2024/05/Dubailand-2-1024x576.jpeg",
+    "https://mena.entrepreneur.com/wp-content/uploads/sites/11/2025/05/1748164348-DLDBuilding-2.jpg",
+    "https://www.constructionweekonline.com/cloud/2021/07/06/dubai-skyline-chestertons-10.jpg",
+  ],
+};
 
 /* ================= Data: real estate content ================= */
 const navLinks = [
@@ -27,22 +54,10 @@ const navLinks = [
 ];
 
 const heroSlides = [
-  {
-    img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTymNtfSjVG8RhcQLbsygcK9icLBlB2wnWpmldAGmBWemMCrEmGQUJ7xAGx&s=10",
-    label: "Residential plots",
-  },
-  {
-    img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTsS3Gga6gFmgyxiHv4XkRemZ-dny-iDAPCp8-fYilE6VmVU4Ukjv52DCA&s=10",
-    label: "Land near main highways",
-  },
-  {
-    img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSYtGbyYTMTs_xF3nXL4J1nt4A_wLRxJkZLpnJDzp6-8jYEHg2lUVhTMu0&s=10",
-    label: "Planned residential layouts",
-  },
-  {
-    img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnBfHbBqGKGN4Cngp2wPKRwZ7QvT9c55Usp3PsCNhfCdLw75_8jrAgwu0&s=10",
-    label: "Dubai partner properties",
-  },
+  { img: IMAGES.hero[0], label: "Residential plots" },
+  { img: IMAGES.hero[1], label: "Land near main highways" },
+  { img: IMAGES.hero[2], label: "Planned residential layouts" },
+  { img: IMAGES.hero[3], label: "Dubai partner properties" },
 ];
 
 /* Card styles — every card has a gold or blue border */
@@ -65,7 +80,6 @@ const visionPillars = [
   ["Teamwork", "over individual success"],
   ["Leadership", "through action, not position"],
 ];
-
 
 const leaderQuotes = [
   {
@@ -99,8 +113,6 @@ const leaders = [
   { name: "Khera Gund", role: "Advocate", area: "Legal & property papers", icon: "scale", text: "Title checks, agreements, NA/NOC, registry and legal risk on every plot." },
 ];
 
-
-
 const whyUs = [
   { icon: "doc", title: "Verified titles", text: "Every plot is checked by our advocate for title, land records and approvals before we list it." },
   { icon: "shield", title: "Registry in your name", text: "On full payment, the sale deed is registered in your name — full legal ownership." },
@@ -109,12 +121,10 @@ const whyUs = [
   { icon: "refresh", title: "Support after the sale", text: "Help with resale, leasing and your next purchase from our after-sales desk." },
 ];
 
-
-
 const zones = [
-  { icon: "home", title: "Residential plots", tag: "Build your home", points: ["Plots for your own house", "Planned communities with parks and schools", "Suited to long-term holding"], img: pic("uli-zone-1", 900, 600) },
-  { icon: "factory", title: "Industrial land", tag: "Build your business", points: ["Land near industrial zones", "For MSMEs and warehousing", "Demand from new factories"], img: pic("uli-zone-2", 900, 600) },
-  { icon: "office", title: "Commercial plots", tag: "Build your income", points: ["Shops, offices and showrooms", "Close to the city centre and main roads", "Scope for rental income"], img: pic("uli-zone-3", 900, 600) },
+  { icon: "home", title: "Residential plots", tag: "Build your home", points: ["Plots for your own house", "Planned communities with parks and schools", "Suited to long-term holding"], img: IMAGES.zoneResidential },
+  { icon: "factory", title: "Industrial land", tag: "Build your business", points: ["Land near industrial zones", "For MSMEs and warehousing", "Demand from new factories"], img: IMAGES.zoneIndustrial },
+  { icon: "office", title: "Commercial plots", tag: "Build your income", points: ["Shops, offices and showrooms", "Close to the city centre and main roads", "Scope for rental income"], img: IMAGES.zoneCommercial },
 ];
 
 const locationFactors = [
@@ -137,14 +147,12 @@ const landChecks = [
 ];
 
 const plots = [
-  { img: pic("uli-plot-1", 800, 600), name: "Residential plot", area: "Prime residential location", size: "100 sq yd", price: "₹12,50,000", tag: "Popular" },
-  { img: pic("uli-plot-2", 800, 600), name: "Premium plot", area: "Near main highway", size: "200 sq yd", price: "₹25,00,000", tag: "Largest" },
-  { img: pic("uli-plot-3", 800, 600), name: "Family plot", area: "Planned residential layout", size: "125 sq yd", price: "₹15,62,500" },
-  { img: pic("uli-plot-4", 800, 600), name: "Starter plot", area: "Fractional option", size: "50 sq yd", price: "₹6,50,000", tag: "Low entry" },
-  { img: pic("uli-plot-5", 800, 600), name: "Compact plot", area: "Fractional option", size: "62.5 sq yd", price: "₹8,12,500" },
+  { img: IMAGES.plot100, name: "Residential plot", area: "Prime residential location", size: "100 sq yd", price: "₹12,50,000", tag: "Popular" },
+  { img: IMAGES.plot200, name: "Premium plot", area: "Near main highway", size: "200 sq yd", price: "₹25,00,000", tag: "Largest" },
+  { img: IMAGES.plot125, name: "Family plot", area: "Planned residential layout", size: "125 sq yd", price: "₹15,62,500" },
+  { img: IMAGES.plot50, name: "Starter plot", area: "Fractional option", size: "50 sq yd", price: "₹6,50,000", tag: "Low entry" },
+  { img: IMAGES.plot62, name: "Compact plot", area: "Fractional option", size: "62.5 sq yd", price: "₹8,12,500" },
 ];
-
-
 
 const stats = [
   ["₹6.5 lakh", "Plots start from"],
@@ -158,7 +166,6 @@ const dubaiPoints = [
   "Power of attorney and remote registration support",
   "Access to property options in Dubai",
 ];
-
 
 /* ================= Helpers ================= */
 function Photo({ src, alt, sizes, priority, className = "" }: { src: string; alt: string; sizes: string; priority?: boolean; className?: string }) {
@@ -259,7 +266,6 @@ function Heading({ eyebrow, title, text, center = false, light = false }: { eyeb
   );
 }
 
-
 /* ================= House-shaped image frame ================= */
 const blueGrad = "bg-[linear-gradient(135deg,var(--color-royal-light)_0%,var(--color-royal)_55%,var(--color-navy-deep)_100%)]";
 const houseClipL = "polygon(0% 11%, 26% 11%, 38% 0%, 50% 11%, 100% 0%, 100% 100%, 0% 100%)";
@@ -292,8 +298,6 @@ function MiniFrame({ src, tone = "blue", className = "", float = "animate-[float
     </div>
   );
 }
-
-
 
 /* ================= Hero ================= */
 const houseClip = "polygon(0% 11%, 26% 11%, 38% 0%, 50% 11%, 100% 0%, 100% 100%, 0% 100%)";
@@ -497,9 +501,9 @@ function AboutMission() {
           </Reveal>
           <Reveal from="right" delay={150} className="relative sm:pr-20">
             <Ring className="-top-5 left-[40%] h-7 w-7 border-[3px]" />
-            <HouseFrame src={pic("uli-mission", 1000, 900)} alt="Planned residential land" sizes="(min-width:1024px) 45vw, 100vw" tone="gold" className="aspect-[5/4.4]" />
+            <HouseFrame src={IMAGES.mission} alt="Planned residential land" sizes="(min-width:1024px) 45vw, 100vw" tone="gold" className="aspect-[5/4.4]" />
             <Reveal from="top" delay={500} className="absolute right-0 top-[16%] hidden w-[30%] sm:block">
-              <MiniFrame src={pic("uli-mission-2", 400, 340)} tone="blue" className="aspect-[4/3.4]" />
+              <MiniFrame src={IMAGES.mission2} tone="blue" className="aspect-[4/3.4]" />
             </Reveal>
             <div className="absolute -bottom-6 -left-4 z-10 rounded-2xl border border-gold/50 bg-navy px-6 py-4 text-ink shadow-xl sm:-left-8">
               <p className="text-lg font-bold text-gold-light">Your land, your name</p>
@@ -526,8 +530,6 @@ function AboutMission() {
     </section>
   );
 }
-
-
 
 /* ================= Leadership ================= */
 function Leadership() {
@@ -612,8 +614,6 @@ function WhyUs() {
   );
 }
 
-
-
 /* ================= Property types / master plan ================= */
 function MasterPlan() {
   return (
@@ -645,7 +645,6 @@ function MasterPlan() {
             </Reveal>
           ))}
         </div>
-
       </div>
     </section>
   );
@@ -682,9 +681,9 @@ function LandChecks() {
       <div className={`${container} grid items-center gap-12 lg:grid-cols-2`}>
         <Reveal from="left" className="relative sm:pl-20">
           <Ring className="-top-5 right-[40%] h-7 w-7 border-[3px]" />
-          <HouseFrame src={pic("uli-infra", 1000, 900)} alt="Land being checked by our team" sizes="(min-width:1024px) 45vw, 100vw" tone="blue" flip className="aspect-[5/4.4]" />
+          <HouseFrame src={IMAGES.infra} alt="Land being checked by our team" sizes="(min-width:1024px) 45vw, 100vw" tone="blue" flip className="aspect-[5/4.4]" />
           <Reveal from="bottom" delay={500} className="absolute left-0 top-[18%] hidden w-[30%] sm:block">
-            <MiniFrame src={pic("uli-infra-2", 400, 340)} tone="gold" className="aspect-[4/3.4]" float="animate-[float_7s_ease-in-out_1s_infinite]" />
+            <MiniFrame src={IMAGES.infra2} tone="gold" className="aspect-[4/3.4]" float="animate-[float_7s_ease-in-out_1s_infinite]" />
           </Reveal>
           <div className={`${goldGrad} absolute -bottom-6 right-6 z-10 rounded-2xl border border-navy-deep/20 px-6 py-4 text-navy-deep shadow-xl`}>
             <p className="text-2xl font-extrabold">8-point check</p>
@@ -706,12 +705,6 @@ function LandChecks() {
     </section>
   );
 }
-
-
-
-
-
-
 
 /* ================= Plot carousel ================= */
 function usePerView() {
@@ -826,7 +819,7 @@ function StatsBand() {
 
 /* ================= Dubai ================= */
 function Dubai() {
-  const imgs = [pic("uli-dubai-1", 900, 1100), pic("uli-dubai-2", 900, 1100), pic("uli-dubai-3", 900, 1100)];
+  const imgs = IMAGES.dubai;
   const [i, setI] = useState(0);
   useEffect(() => {
     const t = setInterval(() => setI((n) => (n + 1) % imgs.length), 3500);
@@ -874,11 +867,6 @@ function Dubai() {
   );
 }
 
-
-
-
-
-
 /* ================= Page ================= */
 export default function Page() {
   return (
@@ -891,7 +879,7 @@ export default function Page() {
         body { background: #000000; color: #F5EFDD; }
         @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
       `}</style>
-    
+
       <main>
         <Hero />
         <AboutMission />
@@ -900,13 +888,10 @@ export default function Page() {
         <PlotCarousel />
         <LandChecks />
         <Connectivity />
-       <Dubai />
+        <Dubai />
         <Leadership />
         <StatsBand />
-        
-       
       </main>
-      
     </div>
   );
 }
