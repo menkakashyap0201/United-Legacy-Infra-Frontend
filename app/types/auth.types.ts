@@ -1,6 +1,12 @@
 /** 1 = West, 2 = East */
 export type TeamPosition = 1 | 2;
 
+/** Sirf { status, message } wale responses ke liye */
+export interface BasicResponse {
+    status: boolean;
+    message: string;
+}
+
 export interface AuthUser {
     id: number;
     name: string;
@@ -36,9 +42,7 @@ export interface RegisterPayload {
     team_position: TeamPosition;
 }
 
-export interface RegisterResponse {
-    status: boolean;
-    message: string;
+export interface RegisterResponse extends BasicResponse {
     token: string;
     user: AuthUser;
 }
@@ -49,21 +53,42 @@ export interface LoginPayload {
     password: string;
 }
 
-export interface LoginResponse {
-    status: boolean;
-    message: string;
+export interface LoginResponse extends BasicResponse {
     email: string;
 }
 
-/* ---------- Verify OTP (step 2: token deta hai) ---------- */
+/* ---------- Login verify OTP (step 2: token deta hai) ---------- */
 export interface VerifyOtpPayload {
     referal_code: string;
     otp: string;
 }
 
-export interface VerifyOtpResponse {
-    status: boolean;
-    message: string;
+export interface VerifyOtpResponse extends BasicResponse {
     token: string;
     user: AuthUser;
+}
+
+/* ---------- Forgot password ---------- */
+/** Step 1: referral code → OTP email pe */
+export interface ForgotPasswordPayload {
+    referal_code: string;
+}
+
+export interface ForgotPasswordResponse extends BasicResponse {
+    /** Backend masked email bhejta hai, jaise "me***@gmail.com" */
+    email: string;
+}
+
+/** Step 2: OTP check */
+export interface VerifyForgotOtpPayload {
+    referal_code: string;
+    otp: string;
+}
+
+/** Step 3: naya password (OTP dobara jaata hai) */
+export interface ResetPasswordPayload {
+    referal_code: string;
+    otp: string;
+    password: string;
+    password_confirmation: string;
 }

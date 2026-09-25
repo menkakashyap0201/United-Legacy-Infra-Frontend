@@ -21,7 +21,7 @@ export default function AppHeader() {
   return (
     <header className="relative flex items-center justify-between gap-3 bg-white/75 px-5 py-3 backdrop-blur-md sm:px-7">
       {/* ===== Logo ===== */}
-      <Link href="/dashboard" aria-label="United Legacy — home" className="group flex min-w-0 items-center gap-2.5">
+      <Link href="/profile" aria-label="United Legacy — home" className="group flex min-w-0 items-center gap-2.5">
         <span className="relative flex shrink-0 items-center justify-center">
           <span aria-hidden className="absolute h-11 w-11 rounded-full bg-[#D4A437]/20 blur-md transition group-hover:bg-[#D4A437]/35" />
           <Image src="/logo-b.png" alt="" width={435} height={233} priority className="relative h-9 w-auto" />

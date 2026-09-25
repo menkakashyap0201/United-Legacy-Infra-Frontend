@@ -8,7 +8,7 @@ import { goldGrad } from "@/app/components/auth/ui";
 
 /* Naya tab add karna ho to bas yahan ek line */
 const ITEMS: { href: string; label: string; Icon: IconType }[] = [
-  { href: "/dashboard", label: "Home", Icon: FaHouse },
+  { href: "/home1", label: "Home", Icon: FaHouse },
   { href: "/profile", label: "Profile", Icon: FaUser },
   { href: "/plc", label: "PLC", Icon: FaSitemap },
   { href: "/investment", label: "Investment", Icon: FaChartLine },

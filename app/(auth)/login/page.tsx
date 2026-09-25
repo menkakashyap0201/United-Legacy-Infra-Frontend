@@ -151,7 +151,7 @@ export default function LoginPage() {
         <Success
           title="You're logged in"
           text="Your plots, documents and earnings are ready."
-          action={<Link href="/profile" className={btnNavy}>Go to dashboard <FaArrowRight className="h-3.5 w-3.5" /></Link>}
+          action={<Link href="/profile" className={btnNavy}>Go to Profile <FaArrowRight className="h-3.5 w-3.5" /></Link>}
         />
       </AuthCard>
     );
